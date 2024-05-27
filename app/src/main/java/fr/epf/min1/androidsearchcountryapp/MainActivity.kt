@@ -5,6 +5,8 @@ import CountryRepository
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
 
 import androidx.activity.ComponentActivity
 
@@ -18,23 +20,31 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val searchField = findViewById<TextView>(R.id.searchField)
+        val buttonsearchByCountry = findViewById<Button>(R.id.searchByCountryButton)
+        val buttonsearchByCapital = findViewById<Button>(R.id.searchByCapitalButton)
 
 
-
-        val ButtonsearchByCountry = findViewById<Button>(R.id.searchByCountryButton)
-        val ButtonsearchByCapital = findViewById<Button>(R.id.searchByCapitalButton)
-
-        ButtonsearchByCountry.setOnClickListener(){
-            with(it.context){
+        buttonsearchByCountry.setOnClickListener {
+            val searchTerm = searchField.text.toString()
+            if (searchTerm.isNotEmpty()) {
                 val intent = Intent(this, CountryListActivity::class.java)
+                intent.putExtra("searchTerm", searchTerm)
                 startActivity(intent)
+            } else {
+                Toast.makeText(this, "Veuillez saisir un terme de recherche", Toast.LENGTH_SHORT).show()
             }
-
         }
 
-        ButtonsearchByCapital.setOnClickListener(){
-            val intent = Intent(this, CountryListActivity::class.java)
-            startActivity(intent)
+        buttonsearchByCapital.setOnClickListener(){
+            val searchTerm = searchField.text.toString()
+            if (searchTerm.isNotEmpty()) {
+                val intent = Intent(this, CountryListActivity::class.java)
+                intent.putExtra("searchTerm", searchTerm)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "Veuillez saisir un terme de recherche", Toast.LENGTH_SHORT).show()
+            }
         }
 
 

@@ -1,39 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:padding="16dp">
 
-    <!-- Nom du pays -->
+    <ImageView
+        android:id="@+id/countryFlagImageView"
+        android:layout_width="64dp"
+        android:layout_height="32dp"
+        android:scaleType="fitCenter"
+        tools:src="@tools:sample/backgrounds/scenic" />
+
     <TextView
         android:id="@+id/countryNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:padding="8dp"/>
+        android:layout_toEndOf="@id/countryFlagImageView"
+        android:layout_marginStart="16dp"
+        android:textSize="24sp"
+        android:text="Name" />
 
-    <!-- Capitale -->
     <TextView
-        android:id="@+id/capitalTextView"
+        android:id="@+id/countryCapitalTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/countryNameTextView"
+        android:layout_alignStart="@id/countryNameTextView"
         android:textSize="16sp"
-        android:padding="8dp"/>
+        android:text="Capital" />
 
-    <!-- Drapeau -->
-    <ImageView
-        android:id="@+id/flagImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="8dp"/>
-
-    <!-- Bouton en forme d'étoile -->
-    <Button
+    <ImageButton
         android:id="@+id/favoriteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="★"
-        android:textSize="24sp"
-        android:padding="8dp"/>
-</LinearLayout>
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:background="?attr/selectableItemBackground"
+        android:src="@android:drawable/btn_star" />
+
+</RelativeLayout>
