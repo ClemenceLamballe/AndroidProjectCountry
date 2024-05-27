@@ -4,38 +4,53 @@
     android:layout_height="wrap_content"
     android:padding="16dp">
 
-    <ImageView
-        android:id="@+id/countryFlagImageView"
-        android:layout_width="64dp"
-        android:layout_height="32dp"
-        android:scaleType="fitCenter"
-        tools:src="@tools:sample/backgrounds/scenic" />
-
-    <TextView
-        android:id="@+id/countryNameTextView"
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/country_view_cardview"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/countryFlagImageView"
-        android:layout_marginStart="16dp"
-        android:textSize="24sp"
-        android:text="Name" />
+        android:layout_margin="4dp">
 
-    <TextView
-        android:id="@+id/countryCapitalTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/countryNameTextView"
-        android:layout_alignStart="@id/countryNameTextView"
-        android:textSize="16sp"
-        android:text="Capital" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
 
-    <ImageButton
-        android:id="@+id/favoriteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:background="?attr/selectableItemBackground"
-        android:src="@android:drawable/btn_star" />
+            <ImageView
+                android:id="@+id/countryFlagImageView"
+                android:layout_width="64dp"
+                android:layout_height="32dp"
+                android:scaleType="fitCenter"
+                tools:src="@tools:sample/backgrounds/scenic" />
+
+            <TextView
+                android:id="@+id/countryNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/countryFlagImageView"
+                android:layout_marginStart="16dp"
+                android:textSize="24sp"
+                android:text="Name" />
+
+            <TextView
+                android:id="@+id/countryCapitalTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/countryNameTextView"
+                android:layout_alignStart="@id/countryNameTextView"
+                android:textSize="16sp"
+                android:text="Capital" />
+
+            <ImageButton
+                android:id="@+id/favoriteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="?attr/selectableItemBackground"
+                android:src="@android:drawable/btn_star"/>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

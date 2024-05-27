@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
@@ -71,7 +72,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.8.1")
 
     implementation("com.github.bumptech.glide:glide:4.12.0")
-    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
+    kapt("com.github.bumptech.glide:compiler:4.12.0")
 
 
 

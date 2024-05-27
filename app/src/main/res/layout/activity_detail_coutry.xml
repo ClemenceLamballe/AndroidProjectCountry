@@ -1,0 +1,58 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <ImageButton
+        android:id="@+id/favoriteButtonDetailsPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:src="@android:drawable/btn_star" />
+
+    <TextView
+        android:id="@+id/countryTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="36sp"
+        android:text="Country Title" />
+
+    <TextView
+        android:id="@+id/countryCapitalTextViewDetailsPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/countryTitleTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:textSize="24sp"
+        android:text="Capital" />
+
+
+    <ImageView
+        android:id="@+id/countryFlagImageViewDetailsPage"
+        android:layout_width="64dp"
+        android:layout_height="48dp"
+        android:maxWidth="64dp"
+        android:maxHeight="48dp"
+        android:layout_below="@id/countryCapitalTextViewDetailsPage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:scaleType="fitCenter"
+        tools:src="@tools:sample/backgrounds/scenic" />
+
+
+    <TextView
+        android:id="@+id/otherInfoTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/countryFlagImageViewDetailsPage"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="16dp"
+        android:textSize="20sp"
+        android:text="Other Information" />
+
+</RelativeLayout>

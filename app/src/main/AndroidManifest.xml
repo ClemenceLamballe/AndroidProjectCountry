@@ -24,7 +24,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".CountryListActivity"
-            android:theme="@style/Theme.AppCompat"
+            android:theme="@style/Theme.AppCompat.Light"
+            android:exported="true"/>
+        <activity android:name=".DetailCountryActivity"
+            android:theme="@style/Theme.AppCompat.Light"
             android:exported="true"/>
     </application>
 
