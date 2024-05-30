@@ -1,9 +1,8 @@
 package fr.epf.min1.androidsearchcountryapp
 
 import Country
-import RestCountriesService
+import fr.epf.min1.androidsearchcountryapp.api.RestCountriesService
 import android.os.Bundle
-import android.util.Log
 
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity

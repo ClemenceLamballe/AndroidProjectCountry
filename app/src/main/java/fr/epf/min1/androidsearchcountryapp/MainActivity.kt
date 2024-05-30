@@ -1,6 +1,4 @@
 package fr.epf.min1.androidsearchcountryapp
-import fr.epf.min1.androidsearchcountryapp.CountryListActivity
-import CountryRepository
 
 import android.content.Intent
 import android.os.Bundle
@@ -14,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 
 
 class MainActivity : ComponentActivity() {
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var repository: CountryRepository
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
