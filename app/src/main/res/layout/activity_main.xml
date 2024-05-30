@@ -38,4 +38,12 @@
         android:layout_height="wrap_content"
         android:text="Search by Country" />
 
+
+    <Button
+        android:id="@+id/viewFavoritesButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Favorite Countries"
+        android:background="@color/pastelBlue"/>
+
 </LinearLayout>

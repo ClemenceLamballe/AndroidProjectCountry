@@ -63,7 +63,6 @@ class CountryListActivity : AppCompatActivity() {
 
     private fun displayCountries(countries: List<Country>) {
         recyclerView = findViewById(R.id.countryListRecyclerView)
-        //glide pour image??
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         countryAdapter = CountryAdapter(countries)

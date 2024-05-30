@@ -29,6 +29,10 @@
         <activity android:name=".DetailCountryActivity"
             android:theme="@style/Theme.AppCompat.Light"
             android:exported="true"/>
+
+        <activity android:name=".FavoriteCountriesActivity"
+            android:theme="@style/Theme.AppCompat.Light"
+            android:exported="true"/>
     </application>
 
 </manifest>

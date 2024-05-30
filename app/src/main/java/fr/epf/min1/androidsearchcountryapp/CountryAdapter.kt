@@ -30,7 +30,6 @@ class CountryAdapter(val countries: List<Country>) : RecyclerView.Adapter<Countr
     private val favoriteChangedReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent != null) {
-                Log.d("MyTag","Liste recoit de details")
                 val countryName = intent.getStringExtra("countryName") ?: return
                 val isFavorite = intent.getBooleanExtra("isFavorite", false)
                 updateFavoriteStatus(countryName, isFavorite)
@@ -74,6 +73,7 @@ class CountryAdapter(val countries: List<Country>) : RecyclerView.Adapter<Countr
             updateFavoriteButton(favoriteButton, newFavoriteState)
             sendFavoriteChangedBroadcast(country.name, newFavoriteState)
         }
+
 
         val countryCardView = view.findViewById<CardView>(R.id.country_view_cardview)
         countryCardView.setOnClickListener {

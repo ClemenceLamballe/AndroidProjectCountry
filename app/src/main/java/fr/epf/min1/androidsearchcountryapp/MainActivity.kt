@@ -2,6 +2,7 @@ package fr.epf.min1.androidsearchcountryapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -19,6 +20,8 @@ class MainActivity : ComponentActivity() {
         val searchField = findViewById<TextView>(R.id.searchField)
         val buttonsearchByCountry = findViewById<Button>(R.id.searchByCountryButton)
         val buttonsearchByCapital = findViewById<Button>(R.id.searchByCapitalButton)
+        val buttonViewFavorites = findViewById<Button>(R.id.viewFavoritesButton)
+
 
 
         buttonsearchByCountry.setOnClickListener {
@@ -43,7 +46,12 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-
+        // Gérer le clic sur le bouton pour afficher les favoris
+        buttonViewFavorites.setOnClickListener {
+            Log.d("MyTag","Vers Favoris")
+            val intent = Intent(this, FavoriteCountriesActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 
