@@ -1,12 +1,11 @@
 package fr.epf.min1.androidsearchcountryapp
 
-import Country
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import fr.epf.mm.gestionclient.model.Country
 
 class FavoriteCountriesActivity : ComponentActivity() {
 
@@ -34,7 +33,8 @@ class FavoriteCountriesActivity : ComponentActivity() {
         for (countryName in sharedPreferences.all.keys) {
             val isFavorite = sharedPreferences.getBoolean(countryName, false)
             if (isFavorite) {
-                val country = Country(countryName, "", "") // Remplacer ces champs par les vraies informations du pays
+                val country = Country(Country.Name("", ""), false, "", false, emptyMap(), Country.Idd("", emptyList()), emptyList(), emptyList(), "", "", emptyMap(), emptyList(), false, emptyList(), "", Country.Maps("", ""), 0, emptyList(), Country.Flags("", "", null))
+
                 favoriteCountries.add(country)
             }
         }
