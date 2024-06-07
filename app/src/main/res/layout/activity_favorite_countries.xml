@@ -14,6 +14,16 @@
         android:gravity="center"
         android:padding="16dp"/>
 
+    <!-- Message d'erreur si la liste est vide -->
+    <TextView
+            android:id="@+id/emptyMessageTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No favorite countries found."
+            android:textSize="18sp"
+            android:gravity="center"
+            android:padding="16dp"/>
+
     <!-- RecyclerView pour afficher les pays favoris -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/favoriteCountriesRecyclerView"

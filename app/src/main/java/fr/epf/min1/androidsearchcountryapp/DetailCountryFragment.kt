@@ -1,8 +1,10 @@
 package fr.epf.min1.androidsearchcountryapp
 
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -23,27 +25,64 @@ class DetailCountryFragment : Fragment() {
     private lateinit var favoriteButtonDetail: ImageButton
     private lateinit var sharedPreferences: SharedPreferences
     private var isFavorite: Boolean = false
-    private lateinit var countryName: String
+    private var country: Country? = null
+
+    private val favoriteChangedReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            Log.d("MYTAG", "BroadcastReceiver - onReceive")
+            if (intent != null) {
+                country = intent.getParcelableExtra("Country : ") ?: return
+                val isFavorite = intent.getBooleanExtra("isFavorite", false)
+                updateFavoriteButton(isFavorite)
+                Log.d("MYTAG", "BroadcastReceiver - Country: ${country?.name?.common}, IsFavorite: $isFavorite")
+
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.activity_detail_coutry, container, false)
+        Log.d("MYTAG","dans DETAILS : onCreateView ")
 
+        val view = inflater.inflate(R.layout.activity_detail_coutry, container, false)
 
         favoriteButtonDetail = view.findViewById(R.id.favoriteButtonDetailsPage)
         sharedPreferences = requireActivity().getSharedPreferences("favorites", Context.MODE_PRIVATE)
-        countryName = requireActivity().intent.getStringExtra("countryNameFavorite") ?: ""
+        country = arguments?.getParcelable("country")
+        country?.let {
+            isFavorite = sharedPreferences.getBoolean(it.name.common, false)
+        }
+
+        Log.d("MYTAG", "onCreateView - Country: ${country?.name?.common}, IsFavorite: $isFavorite")
+
+        updateUI(view)
+        return view
+       }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Log.d("MYTAG", "DetailCountryFragment: onViewCreated")
+    }
 
 
+    override fun onResume() {
+        super.onResume()
+        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
+            favoriteChangedReceiver,
+            IntentFilter("fr.epf.min1.androidsearchcountryapp.FAVORITE_CHANGED")
+        )
+    }
 
+    override fun onPause() {
+        super.onPause()
+        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(favoriteChangedReceiver)
+    }
 
-
-        //ICI FAIRE CHANGEMENT DE VAR
-        val country=requireActivity().intent.getParcelableExtra<Country>("country")
+    private fun updateUI(view: View) {
+        Log.d("MYTAG", "DetailCountryFragment: updateUI")
         country?.let {
             view.findViewById<TextView>(R.id.countryTitleDetailsPage).text = it.name.common
             view.findViewById<TextView>(R.id.countryCapitalDetailsPageValue).text = it.capital.joinToString(", ")
@@ -55,56 +94,44 @@ class DetailCountryFragment : Fragment() {
             view.findViewById<TextView>(R.id.countryIndependentDetailsPageValue).text = it.independent.toString()
             view.findViewById<TextView>(R.id.countryUNMemberDetailsPageValue).text = it.unMember.toString()
             view.findViewById<TextView>(R.id.countryLanguagesDetailsPageValue).text = it.languages.values.joinToString(", ")
-            //findViewById<TextView>(R.id.countryCallingCodesDetailsPageValue).text = it.callingCodes.joinToString(", ")
             view.findViewById<TextView>(R.id.countryRegionDetailsPageValue).text = it.region
             view.findViewById<TextView>(R.id.countrySubregionDetailsPageValue).text = it.subregion
             view.findViewById<TextView>(R.id.countryContinentDetailsPageValue).text = it.continents.joinToString(", ")
             view.findViewById<TextView>(R.id.countryLatitudeDetailsPageValue).text = it.latlng[0].toString()
             view.findViewById<TextView>(R.id.countryLongitudeDetailsPageValue).text = it.latlng[1].toString()
             view.findViewById<TextView>(R.id.countryLandlockedDetailsPageValue).text = it.landlocked.toString()
+
             Glide.with(this)
                 .load(it.flags.png)
                 .into(view.findViewById<ImageView>(R.id.countryFlagImageViewDetailsPage))
         }
 
-
-
-
-
-
-
-        favoriteButtonDetail = view.findViewById(R.id.favoriteButtonDetailsPage)
-        sharedPreferences = requireActivity().getSharedPreferences("favorites", Context.MODE_PRIVATE)
-        countryName = requireActivity().intent.getStringExtra("countryNameFavorite") ?: ""
-        isFavorite = sharedPreferences.getBoolean(countryName, false)
-        updateFavoriteButton(favoriteButtonDetail, isFavorite)
-
-
-
+        updateFavoriteButton(isFavorite)
         favoriteButtonDetail.setOnClickListener {
             isFavorite = !isFavorite
-            sharedPreferences.edit().putBoolean(countryName, isFavorite).apply()
-            updateFavoriteButton(favoriteButtonDetail, isFavorite)
-            sendFavoriteChangedBroadcast()
+            country?.let {
+                sharedPreferences.edit().putBoolean(it.name.common, isFavorite).apply()
+                updateFavoriteButton(isFavorite)
+                sendFavoriteChangedBroadcast()
+            }
         }
-
-        return view
     }
 
-    private fun updateFavoriteButton(button: ImageButton, isFavorite: Boolean) {
+    private fun updateFavoriteButton(isFavorite: Boolean) {
+        Log.d("MYTAG", "DetailCountryFragment: updateFavoriteButton - IsFavorite: $isFavorite")
         if (isFavorite) {
-            button.setImageResource(android.R.drawable.btn_star_big_on)
+            favoriteButtonDetail.setImageResource(android.R.drawable.btn_star_big_on)
         } else {
-            button.setImageResource(android.R.drawable.btn_star_big_off)
+            favoriteButtonDetail.setImageResource(android.R.drawable.btn_star_big_off)
         }
     }
 
     private fun sendFavoriteChangedBroadcast() {
-        Log.d("MyTag","Details envoit a Liste")
+        Log.d("MYTAG", "DetailCountryFragment: sendFavoriteChangedBroadcast")
         val intent = Intent("fr.epf.min1.androidsearchcountryapp.FAVORITE_CHANGED")
-        intent.putExtra("countryName", countryName)
+        intent.putExtra("country", country)
         intent.putExtra("isFavorite", isFavorite)
         LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent)
     }
-}
 
+}

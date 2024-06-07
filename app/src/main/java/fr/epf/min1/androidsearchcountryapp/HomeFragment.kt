@@ -37,10 +37,11 @@ class HomeFragment : Fragment()  {
             if (searchTerm.isNotEmpty()) {
 
                 val fragment = CountryListFragment()
-                //val bundle = Bundle()
-                //bundle.putString("searchTerm", searchTerm)
-                //fragment.arguments = bundle
-                bottomNavigationView.selectedItemId = R.id.nav_search//MARCHE PAS
+                val bundle = Bundle()
+                bundle.putString("searchTerm", searchTerm)
+                bundle.putString("searchByType", "country")
+                fragment.arguments = bundle
+                //bottomNavigationView.selectedItemId = R.id.nav_search//MARCHE PAS
 
                 // Utiliser le gestionnaire de fragments pour remplacer le fragment actuel par le nouveau
                 activity?.supportFragmentManager?.beginTransaction()
@@ -58,9 +59,11 @@ class HomeFragment : Fragment()  {
                 val fragment = CountryListFragment()
                 val bundle = Bundle()
                 bundle.putString("searchTerm", searchTerm)
+                bundle.putString("searchByType", "capital")
                 fragment.arguments = bundle
-                bottomNavigationView.selectedItemId = R.id.nav_search
 
+
+                //bottomNavigationView.selectedItemId = R.id.nav_search
 
                 // Utiliser le gestionnaire de fragments pour remplacer le fragment actuel par le nouveau
                 activity?.supportFragmentManager?.beginTransaction()
@@ -76,7 +79,7 @@ class HomeFragment : Fragment()  {
         buttonViewFavorites.setOnClickListener {
             Log.d("MyTag", "Vers Favoris")
             val fragment = FavoriteCountriesFragment()
-            bottomNavigationView.selectedItemId = R.id.nav_favorites
+            //bottomNavigationView.selectedItemId = R.id.nav_favorites
 
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, fragment)

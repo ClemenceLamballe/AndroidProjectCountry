@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +24,7 @@ import fr.epf.mm.gestionclient.model.Country
 class CountryViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
 interface CountryItemClickListener {
-    fun onCountryItemClicked(countryName: String)
+    fun onCountryItemClicked(country : Country, newFavoriteState : Boolean)
 }
 
 class CountryAdapter(val countries: List<Country>, private val clickListener: CountryItemClickListener?=null) : RecyclerView.Adapter<CountryViewHolder>() {
@@ -42,6 +43,8 @@ class CountryAdapter(val countries: List<Country>, private val clickListener: Co
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder {
+        Log.d("MYTAG","onCREATEViewHolder ")
+
         context = parent.context
         sharedPreferences = context.getSharedPreferences("favorites", Context.MODE_PRIVATE)
         LocalBroadcastManager.getInstance(context).registerReceiver(favoriteChangedReceiver, IntentFilter("fr.epf.min1.androidsearchcountryapp.FAVORITE_CHANGED"))
@@ -53,39 +56,39 @@ class CountryAdapter(val countries: List<Country>, private val clickListener: Co
     override fun getItemCount() = countries.size
 
     override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {
+        Log.d("MYTAG","onBindViewHolder ")
+
         val country = countries[position]
         val view = holder.itemView
-        val countryNameTextView = view.findViewById<TextView>(R.id.countryNameTextView)
-        countryNameTextView.text = country.name.common
 
-        val countryCapitalTextView = view.findViewById<TextView>(R.id.countryCapitalTextView)
-        countryCapitalTextView.text = country.capital.get(0)
-        val countryFlagImageView = view.findViewById<ImageView>(R.id.countryFlagImageView)
+        view.apply {
+            val countryNameTextView = findViewById<TextView>(R.id.countryNameTextView)
+            countryNameTextView.text = country.name.common
 
-        Glide.with(holder.itemView.context)
-            .load(country.flags.png)
-            .error(R.drawable.error_image)
-            .into(countryFlagImageView)
+            val countryCapitalTextView = findViewById<TextView>(R.id.countryCapitalTextView)
+            countryCapitalTextView.text = country.capital.getOrNull(0) ?: ""
 
-        val favoriteButton = view.findViewById<ImageButton>(R.id.favoriteButton)
-        val isFavorite = sharedPreferences.getBoolean(country.name.common, false)
-        updateFavoriteButton(favoriteButton, isFavorite)
+            val countryFlagImageView = findViewById<ImageView>(R.id.countryFlagImageView)
+            Glide.with(context)
+                .load(country.flags.png)
+                .error(R.drawable.error_image)
+                .into(countryFlagImageView)
 
-        favoriteButton.setOnClickListener {
-            val newFavoriteState = !isFavorite
-            sharedPreferences.edit().putBoolean(country.name.common, newFavoriteState).apply()
-            updateFavoriteButton(favoriteButton, newFavoriteState)
-            sendFavoriteChangedBroadcast(country.name.common, newFavoriteState)
-        }
+            val favoriteButton = findViewById<ImageButton>(R.id.favoriteButton)
+            val isFavorite = sharedPreferences.getBoolean(country.name.common, false)
+            updateFavoriteButton(favoriteButton, isFavorite)
 
+            favoriteButton.setOnClickListener {
+                val newFavoriteState = !isFavorite
+                sharedPreferences.edit().putBoolean(country.name.common, newFavoriteState).apply()
+                updateFavoriteButton(favoriteButton, newFavoriteState)
+                sendFavoriteChangedBroadcast(country.name.common, newFavoriteState)
+            }
 
-        val countryCardView = view.findViewById<CardView>(R.id.country_view_cardview)
-        countryCardView.setOnClickListener {
-            clickListener?.onCountryItemClicked(country.name.common)
-            val intent = Intent(it.context, DetailCountryFragment::class.java)
-            intent.putExtra("countryNameFavorite", country.name)
-            intent.putExtra("country",country)
-            it.context.startActivity(intent)
+            val countryCardView = findViewById<CardView>(R.id.country_view_cardview)
+            countryCardView.setOnClickListener {
+                clickListener?.onCountryItemClicked(country, isFavorite)
+            }
         }
     }
 
@@ -104,7 +107,7 @@ class CountryAdapter(val countries: List<Country>, private val clickListener: Co
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent)
     }
 
-    private fun updateFavoriteStatus(countryName: String, isFavorite: Boolean) {
+    public fun updateFavoriteStatus(countryName: String, isFavorite: Boolean) {
         val position = countries.indexOfFirst { it.name.common == countryName }
         if (position != -1) {
             notifyItemChanged(position)
