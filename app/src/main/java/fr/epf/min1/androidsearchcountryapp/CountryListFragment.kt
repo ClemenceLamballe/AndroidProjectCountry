@@ -1,9 +1,6 @@
 package fr.epf.min1.androidsearchcountryapp
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fr.epf.min1.androidsearchcountryapp.api.CountryService
@@ -23,7 +18,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
@@ -33,7 +27,7 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
     private lateinit var recyclerView: RecyclerView
     private lateinit var countryAdapter: CountryAdapter
 
-    private val favoriteChangedReceiver = object : BroadcastReceiver() {
+    /*private val favoriteChangedReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent != null) {
                 val countryName = intent.getStringExtra("countryName") ?: return
@@ -41,7 +35,7 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
                 countryAdapter.updateFavoriteStatus(countryName, isFavorite)
             }
         }
-    }
+    }*/
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,11 +50,11 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("MYTAG", "onViewCreated: Starting data fetch")
+        Log.d("CountryListFragment", "onViewCreated: Starting data fetch")
         fetchData()
     }
 
-    override fun onResume() {
+    /*override fun onResume() {
         super.onResume()
         LocalBroadcastManager.getInstance(requireContext()).registerReceiver(favoriteChangedReceiver, IntentFilter("fr.epf.min1.androidsearchcountryapp.FAVORITE_CHANGED"))
     }
@@ -68,15 +62,14 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
     override fun onPause() {
         super.onPause()
         LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(favoriteChangedReceiver)
-    }
+    }*/
 
     private fun fetchData() {
         val searchTerm = arguments?.getString("searchTerm")
         val searchByType = arguments?.getString("searchByType")
 
-        Log.d("MYTAG", "searchTerm: $searchTerm")
-        Log.d("MYTAG", "searchByType: $searchByType")
-
+        Log.d("CountryListFragment", "searchTerm: $searchTerm")
+        Log.d("CountryListFragment", "searchByType: $searchByType")
 
 
         val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
@@ -106,7 +99,7 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
                 }
 
                 if (response != null && response.isSuccessful) {
-                    Log.d("MYTAG", "onResponse: Success")
+                    Log.d("CountryListFragment", "onResponse: Success")
                     val countries = response.body()
                     withContext(Dispatchers.Main) {
                         if (countries != null) {
@@ -128,22 +121,20 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
                 }
             }
         }
-
     }
 
     private fun displayCountries(countries: List<Country>) {
-        Log.d("MYTAG", "displayCountries: Displaying ${countries.size} countries")
+        Log.d("CountryListFragment", "displayCountries: Displaying ${countries.size} countries")
         countryAdapter = CountryAdapter(countries, this)
         recyclerView.adapter = countryAdapter
     }
 
     override fun onCountryItemClicked(country: Country, isFavorite: Boolean) {
-        Log.d("MYTAG", "onCountryItemClicked: Clicked on country: ${country.name.common}, IsFavorite: $isFavorite")
+        Log.d("CountryListFragment", "onCountryItemClicked: Clicked on country: ${country.name.common}, IsFavorite: $isFavorite")
 
         val fragment = DetailCountryFragment()
         val bundle = Bundle()
         bundle.putParcelable("country", country)
-        bundle.putBoolean("IsFavorite", isFavorite)
 
         fragment.arguments = bundle
 

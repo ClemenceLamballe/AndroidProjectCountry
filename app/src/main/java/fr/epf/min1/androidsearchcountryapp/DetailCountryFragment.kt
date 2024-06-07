@@ -19,15 +19,28 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.bumptech.glide.Glide
 import fr.epf.mm.gestionclient.model.Country
+import fr.epf.min1.androidsearchcountryapp.data.FavoriteCountriesRepository
+
 
 class DetailCountryFragment : Fragment() {
 
     private lateinit var favoriteButtonDetail: ImageButton
-    private lateinit var sharedPreferences: SharedPreferences
-    private var isFavorite: Boolean = false
+    //private lateinit var sharedPreferences: SharedPreferences
+    //private var isFavorite: Boolean = false
     private var country: Country? = null
+    private var isFavorite: Boolean = false
 
-    private val favoriteChangedReceiver = object : BroadcastReceiver() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            country = it.getParcelable("country")
+        }
+        isFavorite =  FavoriteCountriesRepository.favoriteCountries.contains(country)
+
+    }
+
+    /*private val favoriteChangedReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             Log.d("MYTAG", "BroadcastReceiver - onReceive")
             if (intent != null) {
@@ -38,7 +51,7 @@ class DetailCountryFragment : Fragment() {
 
             }
         }
-    }
+    }*/
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,14 +63,17 @@ class DetailCountryFragment : Fragment() {
         val view = inflater.inflate(R.layout.activity_detail_coutry, container, false)
 
         favoriteButtonDetail = view.findViewById(R.id.favoriteButtonDetailsPage)
-        sharedPreferences = requireActivity().getSharedPreferences("favorites", Context.MODE_PRIVATE)
-        country = arguments?.getParcelable("country")
+        //sharedPreferences = requireActivity().getSharedPreferences("favorites", Context.MODE_PRIVATE)
+        /*country = arguments?.getParcelable("country")
         country?.let {
             isFavorite = sharedPreferences.getBoolean(it.name.common, false)
-        }
+        }*/
 
+        /*country = arguments?.getParcelable("country")
+        val isFavorite = FavoriteCountriesRepository.favoriteCountries.contains(country)
+        updateFavoriteButton(isFavorite)
         Log.d("MYTAG", "onCreateView - Country: ${country?.name?.common}, IsFavorite: $isFavorite")
-
+        */
         updateUI(view)
         return view
        }
@@ -65,10 +81,26 @@ class DetailCountryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("MYTAG", "DetailCountryFragment: onViewCreated")
+        country = arguments?.getParcelable("country")
+        Log.d("MYTAG", "DetailCountryFragment: country ${country?.name?.common}")
+
+        val isFavorite = FavoriteCountriesRepository.favoriteCountries.contains(country)
+        updateFavoriteButton(isFavorite)
+        favoriteButtonDetail.setOnClickListener {
+            country?.let {
+                val newFavoriteState = !isFavorite
+                if (newFavoriteState) {
+                    FavoriteCountriesRepository.favoriteCountries.add(it)
+                } else {
+                    FavoriteCountriesRepository.favoriteCountries.remove(it)
+                }
+                updateFavoriteButton(newFavoriteState)
+            }
+        }
     }
 
 
-    override fun onResume() {
+    /*override fun onResume() {
         super.onResume()
         LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
             favoriteChangedReceiver,
@@ -79,7 +111,7 @@ class DetailCountryFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(favoriteChangedReceiver)
-    }
+    }*/
 
     private fun updateUI(view: View) {
         Log.d("MYTAG", "DetailCountryFragment: updateUI")
@@ -106,7 +138,7 @@ class DetailCountryFragment : Fragment() {
                 .into(view.findViewById<ImageView>(R.id.countryFlagImageViewDetailsPage))
         }
 
-        updateFavoriteButton(isFavorite)
+        /*updateFavoriteButton(isFavorite)
         favoriteButtonDetail.setOnClickListener {
             isFavorite = !isFavorite
             country?.let {
@@ -114,7 +146,7 @@ class DetailCountryFragment : Fragment() {
                 updateFavoriteButton(isFavorite)
                 sendFavoriteChangedBroadcast()
             }
-        }
+        }*/
     }
 
     private fun updateFavoriteButton(isFavorite: Boolean) {
@@ -126,12 +158,12 @@ class DetailCountryFragment : Fragment() {
         }
     }
 
-    private fun sendFavoriteChangedBroadcast() {
+    /*private fun sendFavoriteChangedBroadcast() {
         Log.d("MYTAG", "DetailCountryFragment: sendFavoriteChangedBroadcast")
         val intent = Intent("fr.epf.min1.androidsearchcountryapp.FAVORITE_CHANGED")
         intent.putExtra("country", country)
         intent.putExtra("isFavorite", isFavorite)
         LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent)
-    }
+    }*/
 
 }
