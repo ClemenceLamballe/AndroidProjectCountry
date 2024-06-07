@@ -2,63 +2,52 @@ package fr.epf.min1.androidsearchcountryapp
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
-
-import androidx.activity.ComponentActivity
-
-import androidx.recyclerview.widget.RecyclerView
-import fr.epf.min1.androidsearchcountryapp.api.CountryService
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var bottomNavigationView: BottomNavigationView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val searchField = findViewById<TextView>(R.id.searchField)
-        val buttonsearchByCountry = findViewById<Button>(R.id.searchByCountryButton)
-        val buttonsearchByCapital = findViewById<Button>(R.id.searchByCapitalButton)
-        val buttonViewFavorites = findViewById<Button>(R.id.viewFavoritesButton)
+        bottomNavigationView = findViewById(R.id.bottomNavigationView)
 
 
 
-        buttonsearchByCountry.setOnClickListener {
-            val searchTerm = searchField.text.toString()
-            if (searchTerm.isNotEmpty()) {
-                val intent = Intent(this, CountryListActivity::class.java)
-                intent.putExtra("searchTerm", searchTerm)
-                intent.putExtra("searchByType", "country")
-                startActivity(intent)
-            } else {
-                Toast.makeText(this, "Veuillez saisir un terme de recherche", Toast.LENGTH_SHORT).show()
+        val fragment = HomeFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
+        bottomNavigationView.selectedItemId = R.id.nav_home//MARCHE PAS
+
+
+        // Gérer les clics sur les éléments de la barre de navigation
+        bottomNavigationView.setOnNavigationItemSelectedListener{ menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_home -> {
+                    replaceFragment(HomeFragment())
+                    true
+                }
+                R.id.nav_search -> {
+                    replaceFragment(CountryListFragment())
+                    true
+                }
+                R.id.nav_favorites -> {
+                    replaceFragment(FavoriteCountriesFragment())
+                    true
+                }
+                else -> false
             }
         }
-
-        buttonsearchByCapital.setOnClickListener(){
-            val searchTerm = searchField.text.toString()
-            if (searchTerm.isNotEmpty()) {
-                val intent = Intent(this, CountryListActivity::class.java)
-                intent.putExtra("searchTerm", searchTerm)
-                intent.putExtra("searchByType", "capital")
-                startActivity(intent)
-            } else {
-                Toast.makeText(this, "Veuillez saisir un terme de recherche", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        // Gérer le clic sur le bouton pour afficher les favoris
-        buttonViewFavorites.setOnClickListener {
-            Log.d("MyTag","Vers Favoris")
-            val intent = Intent(this, FavoriteCountriesActivity::class.java)
-            startActivity(intent)
-        }
-
+    }
+    private fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
     }
 
-
-
 }
-

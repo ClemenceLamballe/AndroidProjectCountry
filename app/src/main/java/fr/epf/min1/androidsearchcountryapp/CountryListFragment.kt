@@ -1,6 +1,11 @@
 package fr.epf.min1.androidsearchcountryapp
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,23 +23,34 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
-
-class CountryListActivity : AppCompatActivity() {
+class CountryListFragment : Fragment(), CountryItemClickListener  {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var countryAdapter: CountryAdapter
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_country_list, container, false)
+        recyclerView = view.findViewById(R.id.countryListRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        return view
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        fetchData()
+    }
 
-        val searchTerm = intent.getStringExtra("searchTerm")
-        val searchByType = intent.getStringExtra("searchByType")
+    private fun fetchData() {
+        val searchTerm = requireActivity().intent.getStringExtra("searchTerm")
+        val searchByType = requireActivity().intent.getStringExtra("searchByType")
         if (searchTerm!=null){
             Log.e("TEST_SEARCH", searchTerm)
         }
 
-        setContentView(R.layout.activity_country_list)
 
         val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
@@ -92,7 +108,7 @@ class CountryListActivity : AppCompatActivity() {
             try {
                 val countryList = service.getAllCountries()
                 // TODO(FAIRE MARCHER API ET LOGIQUE RE RECHERCHE ICI)
-                *//*val countryList = listOf(
+                /*val countryList = listOf(
                     Country("France", "Paris", "French Republic", "FR", "Euro", "€", "+33", listOf("2"), listOf("AND", "BEL", "DEU", "ITA", "LUX", "MCO", "ESP", "CHE"), "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg", "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg", 67391582, "Europe", true, true, mapOf("fra" to "French"), "Europe", "Western Europe", 48.8566, 2.3522, false),
                     Country("USA", "Washington, D.C.", "United States of America", "US", "United States Dollar", "$", "+1", listOf("2"), listOf("CAN", "MEX"), "https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg", "https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg", 331002651, "North America", true, true, mapOf("eng" to "English"), "Americas", "North America", 38.9072, -77.0369, false),
                     Country("Germany", "Berlin", "Federal Republic of Germany", "DE", "Euro", "€", "+49", listOf("2"), listOf("AUT", "BEL", "CZE", "DNK", "FRA", "LUX", "NLD", "POL", "CHE"), "https://upload.wikimedia.org/wikipedia/en/b/ba/Flag_of_Germany.svg", "https://upload.wikimedia.org/wikipedia/en/b/ba/Flag_of_Germany.svg", 83166711, "Europe", true, true, mapOf("deu" to "German"), "Europe", "Western Europe", 52.5200, 13.4050, false),
@@ -103,7 +119,7 @@ class CountryListActivity : AppCompatActivity() {
                     Country("India", "New Delhi", "Republic of India", "IN", "Indian Rupee", "₹", "+91", listOf("2"), listOf("BGD", "BTN", "MMR", "CHN", "NPL", "PAK", "LKA"), "https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg", "https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg", 1380004385, "Asia", true, true, mapOf("eng" to "English", "hin" to "Hindi"), "Asia", "Southern Asia", 28.6139, 77.2090, false),
                     Country("Mexico", "Mexico City", "United Mexican States", "MX", "Mexican Peso", "$", "+52", listOf("2"), listOf("BLZ", "GTM", "USA"), "https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Mexico.svg", "https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Mexico.svg", 128932753, "North America", true, true, mapOf("spa" to "Spanish"), "Americas", "Central America", 19.4326, -99.1332, false),
                     Country("Russia", "Moscow", "Russian Federation", "RU", "Russian Ruble", "₽", "+7", listOf("2"), listOf("AZE", "BLR", "CHN", "EST", "FIN", "GEO", "KAZ", "PRK", "LVA", "LTU", "MNG", "NOR", "POL", "UKR"), "https://upload.wikimedia.org/wikipedia/en/f/f3/Flag_of_Russia.svg", "https://upload.wikimedia.org/wikipedia/en/f/f3/Flag_of_Russia.svg", 145912025, "Europe", true, true, mapOf("rus" to "Russian"), "Europe", "Eastern Europe", 55.7558, 37.6176, false),
-                    )*//*
+                    )*/
 
                 withContext(Dispatchers.Main) {
                     displayCountries(countryList)
@@ -119,14 +135,21 @@ class CountryListActivity : AppCompatActivity() {
     }
 
     private fun displayCountries(countries: List<Country>) {
-        recyclerView = findViewById(R.id.countryListRecyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-
-        countryAdapter = CountryAdapter(countries)
+        countryAdapter = CountryAdapter(countries, this)
         recyclerView.adapter = countryAdapter
     }
 
+    override fun onCountryItemClicked(countryName: String) {
+        val fragment = DetailCountryFragment()
+        val bundle = Bundle()
+        bundle.putString("countryNameFavorite", countryName)
+        fragment.arguments = bundle
 
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
 
 
 }

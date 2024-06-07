@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="Theme.AndroidSearchCountryApp" parent="Theme.MaterialComponents.Light.DarkActionBar"/>
 
-    <style name="Theme.AndroidSearchCountryApp" parent="android:Theme.Material.Light.NoActionBar" />
 </resources>
+<!--
+<style name="Theme.AndroidSearchCountryApp" parent="android:Theme.Material.Light.NoActionBar" />-->

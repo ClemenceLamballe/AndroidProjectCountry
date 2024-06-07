@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+
+    <!-- Titre de l'application -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Search Country Application"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="16dp"/>
+
+    <!-- Champ de recherche -->
+    <EditText
+        android:id="@+id/searchField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Search country" />
+
+    <!-- Bouton de recherche par nom de capitale -->
+    <Button
+        android:id="@+id/searchByCapitalButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Search by Capital" />
+
+    <!-- Bouton de recherche par nom de pays -->
+    <Button
+        android:id="@+id/searchByCountryButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Search by Country" />
+
+    <!-- Bouton pour voir les favoris -->
+    <Button
+        android:id="@+id/viewFavoritesButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Favorite Countries"
+        android:background="@color/pastelBlue"/>
+</LinearLayout>

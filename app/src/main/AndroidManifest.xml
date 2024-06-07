@@ -26,14 +26,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CountryListActivity"
+        <activity android:name=".HomeFragment"
             android:theme="@style/Theme.AppCompat.Light"
             android:exported="true"/>
-        <activity android:name=".DetailCountryActivity"
+        <activity android:name=".CountryListFragment"
+            android:theme="@style/Theme.AppCompat.Light"
+            android:exported="true"/>
+        <activity android:name=".DetailCountryFragment"
             android:theme="@style/Theme.AppCompat.Light"
             android:exported="true"/>
 
-        <activity android:name=".FavoriteCountriesActivity"
+        <activity android:name=".FavoriteCountriesFragment"
             android:theme="@style/Theme.AppCompat.Light"
             android:exported="true"/>
     </application>

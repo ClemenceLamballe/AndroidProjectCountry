@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.SharedPreferences
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +22,11 @@ import fr.epf.mm.gestionclient.model.Country
 
 class CountryViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
-class CountryAdapter(val countries: List<Country>) : RecyclerView.Adapter<CountryViewHolder>() {
+interface CountryItemClickListener {
+    fun onCountryItemClicked(countryName: String)
+}
+
+class CountryAdapter(val countries: List<Country>, private val clickListener: CountryItemClickListener?=null) : RecyclerView.Adapter<CountryViewHolder>() {
 
     private lateinit var context: Context
     private lateinit var sharedPreferences: SharedPreferences
@@ -76,7 +81,8 @@ class CountryAdapter(val countries: List<Country>) : RecyclerView.Adapter<Countr
 
         val countryCardView = view.findViewById<CardView>(R.id.country_view_cardview)
         countryCardView.setOnClickListener {
-            val intent = Intent(it.context, DetailCountryActivity::class.java)
+            clickListener?.onCountryItemClicked(country.name.common)
+            val intent = Intent(it.context, DetailCountryFragment::class.java)
             intent.putExtra("countryNameFavorite", country.name)
             intent.putExtra("country",country)
             it.context.startActivity(intent)
