@@ -34,9 +34,7 @@ class DetailCountryActivity : AppCompatActivity() {
 
 
         //ICI FAIRE CHANGEMENT DE VAR
-        //val countryTitleTextView = findViewById<TextView>(R.id.countryTitleTextViewDetailsPage)
         val country=intent.getParcelableExtra<Country>("country")
-        //country?.let { findViewById<TextView>(R.id.countryTitleTextViewDetailsPage).text = country.name.common }
         country?.let {
             findViewById<TextView>(R.id.countryTitleDetailsPage).text = it.name.common
             findViewById<TextView>(R.id.countryCapitalDetailsPageValue).text = it.capital.joinToString(", ")

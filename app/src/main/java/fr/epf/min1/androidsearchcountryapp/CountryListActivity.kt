@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
@@ -26,7 +27,13 @@ class CountryListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("API_RESPONSE", "POUET")
+
+        val searchTerm = intent.getStringExtra("searchTerm")
+        val searchByType = intent.getStringExtra("searchByType")
+        if (searchTerm!=null){
+            Log.e("TEST_SEARCH", searchTerm)
+        }
+
         setContentView(R.layout.activity_country_list)
 
         val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
@@ -48,18 +55,32 @@ class CountryListActivity : AppCompatActivity() {
         val countryService = retrofit.create(CountryService::class.java)
 
         CoroutineScope(Dispatchers.IO).launch {
-            val response = countryService.getCountries()
-            if (response.isSuccessful) {
-                Log.d("TEST_API", "Success")
-                val countries = response.body()
+            var response: Response<List<Country>>? = null
 
-                withContext(Dispatchers.Main) {
-                    if (countries != null) {
-                        displayCountries(countries)
-                    }
+            if (!searchTerm.isNullOrEmpty()) {
+                response = if (searchByType == "country") {
+                    countryService.searchCountryByName(searchTerm)
+                } else if (searchByType == "capital") {
+                    countryService.searchCountryByCapital(searchTerm)
+                } else {
+                    // Gérer les autres types de recherche ici
+                    null
                 }
-            } else {
-                Log.e("TEST_API", "Échec de la récupération des pays: ${response.code()}")
+            }
+
+            if (response != null) {
+                if (response.isSuccessful) {
+                    Log.d("TEST_API", "Success")
+                    val countries = response.body()
+
+                    withContext(Dispatchers.Main) {
+                        if (countries != null) {
+                            displayCountries(countries)
+                        }
+                    }
+                } else {
+                    Log.e("TEST_API", "Échec de la récupération des pays: ${response.code()}")
+                }
             }
         }
 

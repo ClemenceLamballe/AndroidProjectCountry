@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 
 import androidx.recyclerview.widget.RecyclerView
+import fr.epf.min1.androidsearchcountryapp.api.CountryService
 
 
 class MainActivity : ComponentActivity() {
@@ -29,6 +30,7 @@ class MainActivity : ComponentActivity() {
             if (searchTerm.isNotEmpty()) {
                 val intent = Intent(this, CountryListActivity::class.java)
                 intent.putExtra("searchTerm", searchTerm)
+                intent.putExtra("searchByType", "country")
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Veuillez saisir un terme de recherche", Toast.LENGTH_SHORT).show()
@@ -40,6 +42,7 @@ class MainActivity : ComponentActivity() {
             if (searchTerm.isNotEmpty()) {
                 val intent = Intent(this, CountryListActivity::class.java)
                 intent.putExtra("searchTerm", searchTerm)
+                intent.putExtra("searchByType", "capital")
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Veuillez saisir un terme de recherche", Toast.LENGTH_SHORT).show()
