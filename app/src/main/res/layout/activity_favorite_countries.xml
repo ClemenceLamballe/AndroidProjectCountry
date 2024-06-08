@@ -12,7 +12,9 @@
         android:textSize="24sp"
         android:textStyle="bold"
         android:gravity="center"
-        android:padding="16dp"/>
+        android:padding="16dp"
+            style="@style/TitleTextViewStyle"/>
+
 
     <!-- Message d'erreur si la liste est vide -->
     <TextView

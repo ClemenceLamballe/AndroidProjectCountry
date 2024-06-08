@@ -1,5 +1,6 @@
 package fr.epf.min1.androidsearchcountryapp
 
+import QuizzFragment
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -32,16 +33,13 @@ class MainActivity : AppCompatActivity() {
                     replaceFragment(HomeFragment())
                     true
                 }
-                R.id.nav_search -> {
-                    replaceFragment(CountryListFragment())
-                    true
-                }
+
                 R.id.nav_favorites -> {
                     replaceFragment(FavoriteCountriesFragment())
                     true
                 }
                 R.id.nav_quizz -> {
-                    replaceFragment(FavoriteCountriesFragment())
+                    replaceFragment(QuizzFragment())
                     true
                 }
                 else -> false

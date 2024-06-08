@@ -31,26 +31,12 @@ interface CountryItemClickListener {
 class CountryAdapter(val countries: List<Country>, private val clickListener: CountryItemClickListener?=null) : RecyclerView.Adapter<CountryViewHolder>() {
 
     private lateinit var context: Context
-    //private lateinit var sharedPreferences: SharedPreferences
 
-
-
-    /*private val favoriteChangedReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            if (intent != null) {
-                val countryName = intent.getStringExtra("countryName") ?: return
-                val isFavorite = intent.getBooleanExtra("isFavorite", false)
-                updateFavoriteStatus(countryName, isFavorite)
-            }
-        }
-    }*/
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder {
         Log.d("MYTAG","onCREATEViewHolder ")
 
         context = parent.context
-        //sharedPreferences = context.getSharedPreferences("favorites", Context.MODE_PRIVATE)
-        //LocalBroadcastManager.getInstance(context).registerReceiver(favoriteChangedReceiver, IntentFilter("fr.epf.min1.androidsearchcountryapp.FAVORITE_CHANGED"))
         val layoutInflater = LayoutInflater.from(context)
         val view = layoutInflater.inflate(R.layout.item_country, parent, false)
         return CountryViewHolder(view)
@@ -111,25 +97,6 @@ class CountryAdapter(val countries: List<Country>, private val clickListener: Co
     }
 
 
-
-    /*private fun sendFavoriteChangedBroadcast(countryName: String, isFavorite: Boolean) {
-        val intent = Intent("fr.epf.min1.androidsearchcountryapp.FAVORITE_CHANGED")
-        intent.putExtra("countryName", countryName)
-        intent.putExtra("isFavorite", isFavorite)
-        LocalBroadcastManager.getInstance(context).sendBroadcast(intent)
-    }*/
-
-   /* public fun updateFavoriteStatus(countryName: String, isFavorite: Boolean) {
-        val position = countries.indexOfFirst { it.name.common == countryName }
-        if (position != -1) {
-            notifyItemChanged(position)
-        }
-    }*/
-
-   /* override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
-        super.onDetachedFromRecyclerView(recyclerView)
-        LocalBroadcastManager.getInstance(context).unregisterReceiver(favoriteChangedReceiver)
-    }*/
 }
 
 @GlideModule//voir si supprimer ne fait rien

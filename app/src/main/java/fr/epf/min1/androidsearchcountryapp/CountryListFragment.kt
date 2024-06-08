@@ -29,15 +29,7 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
     private lateinit var countryAdapter: CountryAdapter
 
 
-    /*private val favoriteChangedReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            if (intent != null) {
-                val countryName = intent.getStringExtra("countryName") ?: return
-                val isFavorite = intent.getBooleanExtra("isFavorite", false)
-                countryAdapter.updateFavoriteStatus(countryName, isFavorite)
-            }
-        }
-    }*/
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,15 +49,7 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
         fetchData(view)
     }
 
-    /*override fun onResume() {
-        super.onResume()
-        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(favoriteChangedReceiver, IntentFilter("fr.epf.min1.androidsearchcountryapp.FAVORITE_CHANGED"))
-    }
 
-    override fun onPause() {
-        super.onPause()
-        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(favoriteChangedReceiver)
-    }*/
 
     private fun fetchData(view : View) {
         val searchTerm = arguments?.getString("searchTerm")

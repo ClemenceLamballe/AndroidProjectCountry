@@ -32,7 +32,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="36sp"
-                android:text="Country Title" />
+                android:text="Country Title"
+                    style="@style/TitleTextViewStyle"/>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -45,14 +47,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="24sp"
-                    android:text="Capital : " />
+                    android:text="Capital : "
+                        style="@style/TitleTextViewStyle"/>
+
 
                 <TextView
                     android:id="@+id/countryCapitalDetailsPageValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="24sp"
-                    android:text="Value" />
+                    android:text="Value"
+                        style="@style/TitleTextViewStyle"/>
+
 
 
                 <View
@@ -73,370 +79,384 @@
     </LinearLayout>
 
     <!-- Official Name -->
+
+    <!-- Ajout d'un ScrollView -->
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/headerLayoutDetailsPage"
+            android:layout_marginTop="16dp">
+
     <LinearLayout
-        android:id="@+id/countryOfficialNameDetailsPage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/headerLayoutDetailsPage"
-        android:orientation="horizontal"
-        android:layout_marginTop="16dp">
-
-        <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Official Name: " />
-
-        <TextView
-            android:id="@+id/countryOfficialNameDetailsPageValue"
-            android:layout_width="wrap_content"
+            android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/countryOfficialNameDetailsPage"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Value" />
+            android:layout_below="@id/headerLayoutDetailsPage"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Official Name: " />
+
+            <TextView
+                android:id="@+id/countryOfficialNameDetailsPageValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Value" />
+        </LinearLayout>
+
+        <!-- Abbreviation -->
+        <LinearLayout
+            android:id="@+id/countryAbbreviationDetailsPage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/countryOfficialNameDetailsPage"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Abbreviation: " />
+
+            <TextView
+                android:id="@+id/countryAbbreviationDetailsPageValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Value" />
+        </LinearLayout>
+
+        <!-- Continent -->
+        <LinearLayout
+            android:id="@+id/countryContinentDetailsPage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/countryAbbreviationDetailsPage"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Continent: " />
+
+            <TextView
+                android:id="@+id/countryContinentDetailsPageValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Value" />
+        </LinearLayout>
+
+        <!-- Currency -->
+        <LinearLayout
+            android:id="@+id/countryCurrencyDetailsPage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/countryContinentDetailsPage"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Currency: " />
+
+            <TextView
+                android:id="@+id/countryCurrencyDetailsPageValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Value" />
+        </LinearLayout>
+
+        <!-- Population -->
+        <LinearLayout
+            android:id="@+id/countryPopulationDetailsPage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/countryCurrencyDetailsPage"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Population: " />
+
+            <TextView
+                android:id="@+id/countryPopulationDetailsPageValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Value" />
+        </LinearLayout>
+
+        <!-- Map -->
+        <LinearLayout
+            android:id="@+id/countryMapDetailsPage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/countryPopulationDetailsPage"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Map: " />
+
+            <TextView
+                android:id="@+id/countryMapDetailsPageValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Value" />
+        </LinearLayout>
+
+        <!-- Neighboring Countries -->
+        <LinearLayout
+            android:id="@+id/countryNeighboringCountriesDetailsPage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/countryMapDetailsPage"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Neighboring Countries: " />
+
+            <TextView
+                android:id="@+id/countryNeighboringCountriesDetailsPageValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Value" />
+        </LinearLayout>
+
+        <!-- Independent -->
+        <LinearLayout
+            android:id="@+id/countryIndependentDetailsPage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/countryNeighboringCountriesDetailsPage"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Independent: " />
+
+            <TextView
+                android:id="@+id/countryIndependentDetailsPageValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Value" />
+        </LinearLayout>
+
+        <!-- UN Member -->
+        <LinearLayout
+            android:id="@+id/countryUNMemberDetailsPage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/countryIndependentDetailsPage"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="UN Member: " />
+
+            <TextView
+                android:id="@+id/countryUNMemberDetailsPageValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Value" />
+        </LinearLayout>
+
+        <!-- Languages -->
+        <LinearLayout
+            android:id="@+id/countryLanguagesDetailsPage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/countryUNMemberDetailsPage"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Languages: " />
+
+            <TextView
+                android:id="@+id/countryLanguagesDetailsPageValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Value" />
+        </LinearLayout>
+
+        <!-- Calling Codes -->
+        <LinearLayout
+            android:id="@+id/countryCallingCodesDetailsPage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/countryLanguagesDetailsPage"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Calling Codes: " />
+
+            <TextView
+                android:id="@+id/countryCallingCodesDetailsPageValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Value" />
+        </LinearLayout>
+
+        <!-- Region -->
+        <LinearLayout
+            android:id="@+id/countryRegionDetailsPage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/countryCallingCodesDetailsPage"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Region: " />
+
+            <TextView
+                android:id="@+id/countryRegionDetailsPageValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Value" />
+        </LinearLayout>
+
+        <!-- Subregion -->
+        <LinearLayout
+            android:id="@+id/countrySubregionDetailsPage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/countryRegionDetailsPage"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Subregion: " />
+
+            <TextView
+                android:id="@+id/countrySubregionDetailsPageValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Value" />
+        </LinearLayout>
+
+        <!-- Latitude -->
+        <LinearLayout
+            android:id="@+id/countryLatitudeDetailsPage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/countrySubregionDetailsPage"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Latitude: " />
+
+            <TextView
+                android:id="@+id/countryLatitudeDetailsPageValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Value" />
+        </LinearLayout>
+
+        <!-- Longitude -->
+        <LinearLayout
+            android:id="@+id/countryLongitudeDetailsPage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/countryLatitudeDetailsPage"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Longitude: " />
+
+            <TextView
+                android:id="@+id/countryLongitudeDetailsPageValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Value" />
+        </LinearLayout>
+
+        <!-- Landlocked -->
+        <LinearLayout
+            android:id="@+id/countryLandlockedDetailsPage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/countryLongitudeDetailsPage"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Landlocked: " />
+
+            <TextView
+                android:id="@+id/countryLandlockedDetailsPageValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Value" />
+        </LinearLayout>
     </LinearLayout>
-
-    <!-- Abbreviation -->
-    <LinearLayout
-        android:id="@+id/countryAbbreviationDetailsPage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/countryOfficialNameDetailsPage"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Abbreviation: " />
-
-        <TextView
-            android:id="@+id/countryAbbreviationDetailsPageValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Value" />
-    </LinearLayout>
-
-    <!-- Continent -->
-    <LinearLayout
-        android:id="@+id/countryContinentDetailsPage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/countryAbbreviationDetailsPage"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Continent: " />
-
-        <TextView
-            android:id="@+id/countryContinentDetailsPageValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Value" />
-    </LinearLayout>
-
-    <!-- Currency -->
-    <LinearLayout
-        android:id="@+id/countryCurrencyDetailsPage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/countryContinentDetailsPage"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Currency: " />
-
-        <TextView
-            android:id="@+id/countryCurrencyDetailsPageValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Value" />
-    </LinearLayout>
-
-    <!-- Population -->
-    <LinearLayout
-        android:id="@+id/countryPopulationDetailsPage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/countryCurrencyDetailsPage"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Population: " />
-
-        <TextView
-            android:id="@+id/countryPopulationDetailsPageValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Value" />
-    </LinearLayout>
-
-    <!-- Map -->
-    <LinearLayout
-        android:id="@+id/countryMapDetailsPage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/countryPopulationDetailsPage"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Map: " />
-
-        <TextView
-            android:id="@+id/countryMapDetailsPageValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Value" />
-    </LinearLayout>
-
-    <!-- Neighboring Countries -->
-    <LinearLayout
-        android:id="@+id/countryNeighboringCountriesDetailsPage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/countryMapDetailsPage"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Neighboring Countries: " />
-
-        <TextView
-            android:id="@+id/countryNeighboringCountriesDetailsPageValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Value" />
-    </LinearLayout>
-
-    <!-- Independent -->
-    <LinearLayout
-        android:id="@+id/countryIndependentDetailsPage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/countryNeighboringCountriesDetailsPage"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Independent: " />
-
-        <TextView
-            android:id="@+id/countryIndependentDetailsPageValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Value" />
-    </LinearLayout>
-
-    <!-- UN Member -->
-    <LinearLayout
-        android:id="@+id/countryUNMemberDetailsPage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/countryIndependentDetailsPage"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="UN Member: " />
-
-        <TextView
-            android:id="@+id/countryUNMemberDetailsPageValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Value" />
-    </LinearLayout>
-
-    <!-- Languages -->
-    <LinearLayout
-        android:id="@+id/countryLanguagesDetailsPage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/countryUNMemberDetailsPage"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Languages: " />
-
-        <TextView
-            android:id="@+id/countryLanguagesDetailsPageValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Value" />
-    </LinearLayout>
-
-    <!-- Calling Codes -->
-    <LinearLayout
-        android:id="@+id/countryCallingCodesDetailsPage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/countryLanguagesDetailsPage"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Calling Codes: " />
-
-        <TextView
-            android:id="@+id/countryCallingCodesDetailsPageValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Value" />
-    </LinearLayout>
-
-    <!-- Region -->
-    <LinearLayout
-        android:id="@+id/countryRegionDetailsPage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/countryCallingCodesDetailsPage"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Region: " />
-
-        <TextView
-            android:id="@+id/countryRegionDetailsPageValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Value" />
-    </LinearLayout>
-
-    <!-- Subregion -->
-    <LinearLayout
-        android:id="@+id/countrySubregionDetailsPage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/countryRegionDetailsPage"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Subregion: " />
-
-        <TextView
-            android:id="@+id/countrySubregionDetailsPageValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Value" />
-    </LinearLayout>
-
-    <!-- Latitude -->
-    <LinearLayout
-        android:id="@+id/countryLatitudeDetailsPage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/countrySubregionDetailsPage"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Latitude: " />
-
-        <TextView
-            android:id="@+id/countryLatitudeDetailsPageValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Value" />
-    </LinearLayout>
-
-    <!-- Longitude -->
-    <LinearLayout
-        android:id="@+id/countryLongitudeDetailsPage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/countryLatitudeDetailsPage"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Longitude: " />
-
-        <TextView
-            android:id="@+id/countryLongitudeDetailsPageValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Value" />
-    </LinearLayout>
-
-    <!-- Landlocked -->
-    <LinearLayout
-        android:id="@+id/countryLandlockedDetailsPage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/countryLongitudeDetailsPage"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Landlocked: " />
-
-        <TextView
-            android:id="@+id/countryLandlockedDetailsPageValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Value" />
-    </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

@@ -15,7 +15,8 @@
         android:textSize="24sp"
         android:textStyle="bold"
         android:gravity="center"
-        android:padding="16dp"/>
+        android:padding="16dp"
+            style="@style/TitleTextViewStyle"/>
 
     <!-- Champ de recherche -->
     <EditText
@@ -29,26 +30,30 @@
         android:id="@+id/searchByCapitalButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Search by Capital" />
+        android:text="Search by Capital"
+            style="@style/ButtonStyle"/>
 
     <!-- Bouton de recherche par nom de pays -->
     <Button
         android:id="@+id/searchByCountryButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Search by Country" />
+        android:text="Search by Country"
+            style="@style/ButtonStyle"/>
 
     <!-- Bouton pour voir les favoris -->
     <Button
         android:id="@+id/viewFavoritesButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="View Favorite Countries"
-        android:background="@color/pastelBlue"/>
+        android:text="Favorite Countries"
+            style="@style/ButtonStyle"
+        />
 
     <Button
         android:id="@+id/QuizzButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Test your knowledge on favorite countries !" />
+        android:text="Play Quizz"
+            style="@style/ButtonStyle"/>
 </LinearLayout>

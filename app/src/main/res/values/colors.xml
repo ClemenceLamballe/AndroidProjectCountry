@@ -10,4 +10,13 @@
     <color name="starYellow">#FFD700</color>
     <color name="navyBlue">#000080</color>
     <color name="pastelBlue">#6495ED</color>
+    <color name="colorAppBlue">#A7E0E0</color>
+    <color name="navigation_item_color">@color/colorAppBlue</color>
+
+    <color name="navigation_item_color_state">
+        <selector xmlns:android="http://schemas.android.com/apk/res/android">
+            <item android:color="@color/colorAppBlue" android:state_checked="true"/>
+            <item android:color="@android:color/darker_gray" android:state_checked="false"/>
+        </selector>
+    </color>
 </resources>
