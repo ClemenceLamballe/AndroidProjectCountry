@@ -1,11 +1,6 @@
 package fr.epf.min1.androidsearchcountryapp
 
-import android.annotation.SuppressLint
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
-import android.content.SharedPreferences
+
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,8 +10,6 @@ import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.bumptech.glide.Glide
 import fr.epf.mm.gestionclient.model.Country
 import fr.epf.min1.androidsearchcountryapp.data.FavoriteCountriesRepository

@@ -1,24 +1,18 @@
 package fr.epf.min1.androidsearchcountryapp
 
-import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
-import android.content.SharedPreferences
+
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule
-import com.google.gson.Gson
 import fr.epf.min1.androidsearchcountryapp.data.FavoriteCountriesRepository
 import fr.epf.mm.gestionclient.model.Country
 
@@ -67,10 +61,8 @@ class CountryAdapter(val countries: List<Country>, private val clickListener: Co
             favoriteButton.setOnClickListener {
                 val newFavoriteState = !isFavorite
                 updateFavoriteState(favoriteButton, country, newFavoriteState)
-
-                //sharedPreferences.edit().putBoolean(country.name.common, newFavoriteState).apply()
                 updateFavoriteButton(favoriteButton, newFavoriteState)
-                //sendFavoriteChangedBroadcast(country.name.common, newFavoriteState)
+
             }
 
             findViewById<CardView>(R.id.country_view_cardview).setOnClickListener {
@@ -90,13 +82,15 @@ class CountryAdapter(val countries: List<Country>, private val clickListener: Co
     private fun updateFavoriteState(button: ImageButton, country: Country, isFavorite: Boolean) {
         if (isFavorite) {
             FavoriteCountriesRepository.favoriteCountries.add(country)
+            FavoriteCountriesRepository.saveFavorites(context)
+
         } else {
             FavoriteCountriesRepository.favoriteCountries.remove(country)
+            FavoriteCountriesRepository.saveFavorites(context)
+
         }
         updateFavoriteButton(button, isFavorite)
     }
-
-
 }
 
 @GlideModule//voir si supprimer ne fait rien

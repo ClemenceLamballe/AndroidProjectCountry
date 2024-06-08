@@ -1,11 +1,11 @@
 package fr.epf.min1.androidsearchcountryapp
 
 import QuizzFragment
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import fr.epf.min1.androidsearchcountryapp.data.FavoriteCountriesRepository
 
 
 class MainActivity : AppCompatActivity() {
@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
+        FavoriteCountriesRepository.loadFavorites(this)
 
 
 
@@ -45,6 +46,11 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        FavoriteCountriesRepository.saveFavorites(this)
     }
     private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
