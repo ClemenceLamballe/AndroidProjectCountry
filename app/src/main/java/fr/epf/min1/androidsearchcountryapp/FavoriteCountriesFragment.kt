@@ -21,6 +21,7 @@ class FavoriteCountriesFragment : Fragment(), CountryItemClickListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var countryAdapter: CountryAdapter
     //private val favoriteCountries = mutableListOf<Country>()
+    private lateinit var emptyMessageTextView: TextView
 
 
 
@@ -30,6 +31,8 @@ class FavoriteCountriesFragment : Fragment(), CountryItemClickListener {
     ): View? {
         val view = inflater.inflate(R.layout.activity_favorite_countries, container, false)
         Log.d("FavoriteCountriesFragment", "onCreateView called")
+        emptyMessageTextView = view.findViewById(R.id.errorMessageTextView)
+
 
         recyclerView = view.findViewById(R.id.favoriteCountriesRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -40,7 +43,6 @@ class FavoriteCountriesFragment : Fragment(), CountryItemClickListener {
     private fun updateFavoriteCountriesList() {
         Log.d("FavoriteCountriesFragment", "updateFavoriteCountriesList called")
 
-        val emptyMessageTextView = view?.findViewById<TextView>(R.id.emptyMessageTextView)
         //val sharedPreferences = requireContext().getSharedPreferences("favorites", Context.MODE_PRIVATE)
         val favoriteCountries = FavoriteCountriesRepository.favoriteCountries
 
@@ -55,14 +57,15 @@ class FavoriteCountriesFragment : Fragment(), CountryItemClickListener {
 
         if (favoriteCountries.isNotEmpty()) {
             Log.d("FavoriteCountriesFragment", "Favorite countries list is not empty, size: ${favoriteCountries.size}")
-
-            recyclerView.visibility = View.VISIBLE
             emptyMessageTextView?.visibility = View.GONE
+            recyclerView.visibility = View.VISIBLE
+
 
             countryAdapter = CountryAdapter(favoriteCountries, this)
             recyclerView.adapter = countryAdapter
         } else {
             Log.d("FavoriteCountriesFragment", "Favorite countries list is empty")
+            emptyMessageTextView.text = "Aucun pays trouvé"
             emptyMessageTextView?.visibility = View.VISIBLE
             recyclerView.visibility = View.GONE
         }

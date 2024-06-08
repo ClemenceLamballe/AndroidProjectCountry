@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import android.util.Log
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fr.epf.min1.androidsearchcountryapp.api.CountryService
@@ -27,6 +28,7 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
     private lateinit var recyclerView: RecyclerView
     private lateinit var countryAdapter: CountryAdapter
 
+
     /*private val favoriteChangedReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent != null) {
@@ -45,13 +47,14 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
         val view = inflater.inflate(R.layout.fragment_country_list, container, false)
         recyclerView = view.findViewById(R.id.countryListRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("CountryListFragment", "onViewCreated: Starting data fetch")
-        fetchData()
+        fetchData(view)
     }
 
     /*override fun onResume() {
@@ -64,7 +67,7 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
         LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(favoriteChangedReceiver)
     }*/
 
-    private fun fetchData() {
+    private fun fetchData(view : View) {
         val searchTerm = arguments?.getString("searchTerm")
         val searchByType = arguments?.getString("searchByType")
 
@@ -89,9 +92,11 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
             .build()
 
         val countryService = retrofit.create(CountryService::class.java)
+        val errorTextView = view.findViewById<TextView>(R.id.errorTextView)
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
+                errorTextView.visibility = View.GONE
                 val response = when (searchByType) {
                     "country" -> countryService.searchCountryByName(searchTerm ?: "")
                     "capital" -> countryService.searchCountryByCapital(searchTerm ?: "")
@@ -106,18 +111,24 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
                             displayCountries(countries)
                         } else {
                             Toast.makeText(requireContext(), "Aucun pays trouvé", Toast.LENGTH_SHORT).show()
+                            errorTextView.text = "No favorite countries found."
+                            errorTextView.visibility = View.VISIBLE
                         }
                     }
                 } else {
                     Log.e("MYTAG", "Échec de la récupération des pays: ${response?.code()}")
                     withContext(Dispatchers.Main) {
+                        errorTextView.text = "Aucun pays trouvé"
+                        errorTextView.visibility = View.VISIBLE
                         Toast.makeText(requireContext(), "Échec de la récupération des pays", Toast.LENGTH_SHORT).show()
                     }
                 }
-            } catch (e: Exception) {
+            }catch (e: Exception) {
                 Log.e("MYTAG", "Erreur lors de la récupération des données: ${e.message}")
                 withContext(Dispatchers.Main) {
                     Toast.makeText(requireContext(), "Erreur lors de la récupération des données", Toast.LENGTH_SHORT).show()
+                    errorTextView.text = "Oops, le serveur est peut-être indisponible, réessayez plus tard."//Code d'erreur :  ${response?.code()}
+                    errorTextView.visibility = View.VISIBLE
                 }
             }
         }
