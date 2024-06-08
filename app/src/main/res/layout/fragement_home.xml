@@ -45,4 +45,10 @@
         android:layout_height="wrap_content"
         android:text="View Favorite Countries"
         android:background="@color/pastelBlue"/>
+
+    <Button
+        android:id="@+id/QuizzButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Test your knowledge on favorite countries !" />
 </LinearLayout>

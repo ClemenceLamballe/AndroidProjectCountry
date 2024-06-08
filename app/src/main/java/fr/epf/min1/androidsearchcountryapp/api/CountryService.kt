@@ -12,10 +12,16 @@ interface CountryService {
     @GET("all")
     suspend fun getCountries(): Response<List<Country>>
 
-    @GET("name/{searchTerm}")
+    @GET("name/france")
+    suspend fun searchFrance(): Response<List<Country>>
+
+    @GET("character")
+    suspend fun test(): Response<List<Country>>
+
+    @GET("name/{searchTerm}/")
     suspend fun searchCountryByName(@Path("searchTerm") searchTerm: String): Response<List<Country>>
 
-    @GET("capital/{searchTerm}")
+    @GET("capital/{searchTerm}/")
     suspend fun searchCountryByCapital(@Path("searchTerm") searchTerm: String): Response<List<Country>>
 
 }

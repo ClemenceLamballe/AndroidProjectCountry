@@ -1,5 +1,6 @@
 package fr.epf.min1.androidsearchcountryapp
 
+import QuizzFragment
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -28,6 +29,7 @@ class HomeFragment : Fragment()  {
         val buttonsearchByCountry = view.findViewById<Button>(R.id.searchByCountryButton)
         val buttonsearchByCapital = view.findViewById<Button>(R.id.searchByCapitalButton)
         val buttonViewFavorites = view.findViewById<Button>(R.id.viewFavoritesButton)
+        val buttonQuizz = view.findViewById<Button>(R.id.QuizzButton)
         val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
 
@@ -80,6 +82,16 @@ class HomeFragment : Fragment()  {
             Log.d("MyTag", "Vers Favoris")
             val fragment = FavoriteCountriesFragment()
             //bottomNavigationView.selectedItemId = R.id.nav_favorites
+
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
+
+        buttonQuizz.setOnClickListener {
+            Log.d("MyTag", "Vers Quizz")
+            val fragment = QuizzFragment()
 
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, fragment)

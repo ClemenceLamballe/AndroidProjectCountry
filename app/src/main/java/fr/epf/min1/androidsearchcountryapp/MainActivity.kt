@@ -40,6 +40,10 @@ class MainActivity : AppCompatActivity() {
                     replaceFragment(FavoriteCountriesFragment())
                     true
                 }
+                R.id.nav_quizz -> {
+                    replaceFragment(FavoriteCountriesFragment())
+                    true
+                }
                 else -> false
             }
         }

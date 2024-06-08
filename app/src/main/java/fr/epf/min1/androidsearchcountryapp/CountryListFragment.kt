@@ -78,12 +78,34 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
         val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
+
         val client = OkHttpClient.Builder()
             .addInterceptor(httpLoggingInterceptor)
-            .connectTimeout(60, TimeUnit.SECONDS)
-            .readTimeout(60, TimeUnit.SECONDS)
-            .writeTimeout(60, TimeUnit.SECONDS)
+            .connectTimeout(45, TimeUnit.SECONDS)
+            .readTimeout(45, TimeUnit.SECONDS)
             .build()
+
+
+
+        suspend fun tryToFetchCountry(countryService: CountryService, searchName: String): List<Country> {
+            val maxRetries = 5
+            var currentRetry = 0
+            var success = false
+            var countriesList: List<Country> = emptyList()
+
+            while (currentRetry < maxRetries && !success) {
+                try {
+                    val response = countryService.searchCountryByName(searchName)
+                    if (response.isSuccessful && response.body() != null) {
+                        countriesList = response.body()!!
+                        success = true
+                    }
+                } catch (_: Exception) {
+                }
+                currentRetry++
+            }
+            return countriesList
+        }
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://restcountries.com/v3.1/")
