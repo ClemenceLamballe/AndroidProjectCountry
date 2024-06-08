@@ -18,8 +18,7 @@ import fr.epf.min1.androidsearchcountryapp.data.FavoriteCountriesRepository
 class DetailCountryFragment : Fragment() {
 
     private lateinit var favoriteButtonDetail: ImageButton
-    //private lateinit var sharedPreferences: SharedPreferences
-    //private var isFavorite: Boolean = false
+
     private var country: Country? = null
     private var isFavorite: Boolean = false
 
@@ -33,18 +32,6 @@ class DetailCountryFragment : Fragment() {
 
     }
 
-    /*private val favoriteChangedReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            Log.d("MYTAG", "BroadcastReceiver - onReceive")
-            if (intent != null) {
-                country = intent.getParcelableExtra("Country : ") ?: return
-                val isFavorite = intent.getBooleanExtra("isFavorite", false)
-                updateFavoriteButton(isFavorite)
-                Log.d("MYTAG", "BroadcastReceiver - Country: ${country?.name?.common}, IsFavorite: $isFavorite")
-
-            }
-        }
-    }*/
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -88,22 +75,38 @@ class DetailCountryFragment : Fragment() {
     private fun updateUI(view: View) {
         Log.d("MYTAG", "DetailCountryFragment: updateUI")
         country?.let {
-            view.findViewById<TextView>(R.id.countryTitleDetailsPage).text = it.name.common
-            view.findViewById<TextView>(R.id.countryCapitalDetailsPageValue).text = it.capital.joinToString(", ")
-            view.findViewById<TextView>(R.id.countryOfficialNameDetailsPageValue).text = it.name.official
-            view.findViewById<TextView>(R.id.countryAbbreviationDetailsPageValue).text = it.flag
-            view.findViewById<TextView>(R.id.countryCurrencyDetailsPageValue).text = it.currencies.keys.joinToString(", ")
-            view.findViewById<TextView>(R.id.countryPopulationDetailsPageValue).text = it.population.toString()
-            view.findViewById<TextView>(R.id.countryNeighboringCountriesDetailsPageValue).text = it.borders.joinToString(", ")
+            view.findViewById<TextView>(R.id.countryTitleDetailsPage).text = it.name.common?: "Unknown"
+            view.findViewById<TextView>(R.id.countryCapitalDetailsPageValue).text = if (it.capital.isNotEmpty()) it.capital.joinToString(", ") else "Unknown"
+
+            view.findViewById<TextView>(R.id.countryCommonNameDetailsPageValue).text = it.name.common
+            view.findViewById<TextView>(R.id.countryOfficialNameDetailsPageValue).text = it.name.official?: "Unknown"
+            //view.findViewById<TextView>(R.id.countryAbbreviationDetailsPageValue).text = it.idd.root
+            //view.findViewById<TextView>(R.id.countryAbbreviationDetailsPageValue).text = it.idd.suffixes.joinToString(", ")?: "Unknown" pas interressant : fait un chiffre
             view.findViewById<TextView>(R.id.countryIndependentDetailsPageValue).text = it.independent.toString()
             view.findViewById<TextView>(R.id.countryUNMemberDetailsPageValue).text = it.unMember.toString()
-            view.findViewById<TextView>(R.id.countryLanguagesDetailsPageValue).text = it.languages.values.joinToString(", ")
-            view.findViewById<TextView>(R.id.countryRegionDetailsPageValue).text = it.region
-            view.findViewById<TextView>(R.id.countrySubregionDetailsPageValue).text = it.subregion
-            view.findViewById<TextView>(R.id.countryContinentDetailsPageValue).text = it.continents.joinToString(", ")
-            view.findViewById<TextView>(R.id.countryLatitudeDetailsPageValue).text = it.latlng[0].toString()
-            view.findViewById<TextView>(R.id.countryLongitudeDetailsPageValue).text = it.latlng[1].toString()
+
+            view.findViewById<TextView>(R.id.countryPopulationDetailsPageValue).text = it.population.toString()
+            view.findViewById<TextView>(R.id.countryRegionDetailsPageValue).text = it.region?: "Unknown"
+            view.findViewById<TextView>(R.id.countrySubregionDetailsPageValue).text = it.subregion?: "Unknown"
+            view.findViewById<TextView>(R.id.countryContinentDetailsPageValue).text = it.continents.joinToString(", ")?: "Unknown"
+
+            view.findViewById<TextView>(R.id.countryLatitudeDetailsPageValue).text = if (it.latlng.isNotEmpty()) it.latlng[0].toString() else "Unknown"
+            view.findViewById<TextView>(R.id.countryLongitudeDetailsPageValue).text = if (it.latlng.size > 1) it.latlng[1].toString() else "Unknown"
             view.findViewById<TextView>(R.id.countryLandlockedDetailsPageValue).text = it.landlocked.toString()
+            view.findViewById<TextView>(R.id.countryNeighborsDetailsPageValue).text = if (it.borders != null && it.borders.isNotEmpty()) {
+                it.borders.joinToString(", ")
+            } else {
+                "Unknown"
+            }
+
+            view.findViewById<TextView>(R.id.countryMapDetailsPageValue).text = it.maps.googleMaps ?: "Unknown"
+            view.findViewById<TextView>(R.id.countryCallingCodesDetailsPageValue).text = if (it.idd.suffixes.isNotEmpty()) it.idd.suffixes.joinToString(", ") else "Unknown"
+
+            view.findViewById<TextView>(R.id.countryCurrencyDetailsPageValue).text = if (it.currencies.isNotEmpty()) it.currencies.keys.joinToString(", ") else "Unknown"
+
+
+            view.findViewById<TextView>(R.id.countryLanguagesDetailsPageValue).text = if (it.languages.isNotEmpty()) it.languages.values.joinToString(", ") else "Unknown"
+
 
             Glide.with(this)
                 .load(it.flags.png)

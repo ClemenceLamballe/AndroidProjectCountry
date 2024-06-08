@@ -99,8 +99,15 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
 
         val countryService = retrofit.create(CountryService::class.java)
         val errorTextView = view.findViewById<TextView>(R.id.errorTextView)
+        //errorTextView.text = "Chargement en cours"//marche pas
+
+
 
         CoroutineScope(Dispatchers.IO).launch {
+            //withContext(Dispatchers.Main) {
+                //errorTextView.visibility = View.VISIBLE
+            //}
+
             try {
                 errorTextView.visibility = View.GONE
                 val response = when (searchByType) {
@@ -114,6 +121,7 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
                     val countries = response.body()
                     withContext(Dispatchers.Main) {
                         if (countries != null) {
+                            errorTextView.visibility = View.GONE
                             displayCountries(countries)
                         } else {
                             Toast.makeText(requireContext(), "Aucun pays trouvé", Toast.LENGTH_SHORT).show()
@@ -121,19 +129,12 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
                             errorTextView.visibility = View.VISIBLE
                         }
                     }
-                } else {
-                    Log.e("MYTAG", "Échec de la récupération des pays: ${response?.code()}")
-                    withContext(Dispatchers.Main) {
-                        errorTextView.text = "Aucun pays trouvé"
-                        errorTextView.visibility = View.VISIBLE
-                        Toast.makeText(requireContext(), "Échec de la récupération des pays", Toast.LENGTH_SHORT).show()
-                    }
                 }
             }catch (e: Exception) {
                 Log.e("MYTAG", "Erreur lors de la récupération des données: ${e.message}")
                 withContext(Dispatchers.Main) {
                     Toast.makeText(requireContext(), "Erreur lors de la récupération des données", Toast.LENGTH_SHORT).show()
-                    errorTextView.text = "Oops, le serveur est peut-être indisponible, réessayez plus tard."//Code d'erreur :  ${response?.code()}
+                    errorTextView.text = "Oops, le serveur est peut-être indisponible, réessayez plus tard."// marche //Code d'erreur :  ${response?.code()}
                     errorTextView.visibility = View.VISIBLE
                 }
             }
