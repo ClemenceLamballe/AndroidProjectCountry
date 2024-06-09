@@ -76,7 +76,7 @@ class DetailCountryFragment : Fragment() {
         Log.d("MYTAG", "DetailCountryFragment: updateUI")
         country?.let {
             view.findViewById<TextView>(R.id.countryTitleDetailsPage).text = it.name?: "Unknown"
-            view.findViewById<TextView>(R.id.countryCapitalDetailsPageValue).text = it.capital?:"Unknow"
+            view.findViewById<TextView>(R.id.countryCapitalDetailsPageValue).text = it.capital?: "Unknown"
 
             view.findViewById<TextView>(R.id.countryCommonNameDetailsPageValue).text = it.name
             //view.findViewById<TextView>(R.id.countryAbbreviationDetailsPageValue).text = it.idd.root
