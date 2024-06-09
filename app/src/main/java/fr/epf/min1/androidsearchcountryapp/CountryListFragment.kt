@@ -124,8 +124,8 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
                             errorTextView.visibility = View.GONE
                             displayCountries(countries)
                         } else {
-                            Toast.makeText(requireContext(), "Aucun pays trouvé", Toast.LENGTH_SHORT).show()
-                            errorTextView.text = "No favorite countries found."
+                            Toast.makeText(requireContext(), "No favorite countries found", Toast.LENGTH_SHORT).show()
+                            errorTextView.text = "No favorite countries found. Please verify you search in english. Search include common et official name."
                             errorTextView.visibility = View.VISIBLE
                         }
                     }
@@ -133,8 +133,7 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
             }catch (e: Exception) {
                 Log.e("MYTAG", "Erreur lors de la récupération des données: ${e.message}")
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(requireContext(), "Erreur lors de la récupération des données", Toast.LENGTH_SHORT).show()
-                    errorTextView.text = "Oops, le serveur est peut-être indisponible, réessayez plus tard."// marche //Code d'erreur :  ${response?.code()}
+                    errorTextView.text = "Oops, the server might be unavailable, please try again later."// marche //Code d'erreur :  ${response?.code()}
                     errorTextView.visibility = View.VISIBLE
                 }
             }

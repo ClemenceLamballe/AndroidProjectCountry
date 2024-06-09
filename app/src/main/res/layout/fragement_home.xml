@@ -7,7 +7,6 @@
     android:padding="16dp">
 
 
-    <!-- Titre de l'application -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,7 +24,6 @@
         android:layout_height="wrap_content"
         android:hint="Search country" />
 
-    <!-- Bouton de recherche par nom de capitale -->
     <Button
         android:id="@+id/searchByCapitalButton"
         android:layout_width="match_parent"
@@ -33,7 +31,6 @@
         android:text="Search by Capital"
             style="@style/ButtonStyle"/>
 
-    <!-- Bouton de recherche par nom de pays -->
     <Button
         android:id="@+id/searchByCountryButton"
         android:layout_width="match_parent"
@@ -41,7 +38,6 @@
         android:text="Search by Country"
             style="@style/ButtonStyle"/>
 
-    <!-- Bouton pour voir les favoris -->
     <Button
         android:id="@+id/viewFavoritesButton"
         android:layout_width="match_parent"

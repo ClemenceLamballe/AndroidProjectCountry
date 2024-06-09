@@ -65,7 +65,7 @@ class FavoriteCountriesFragment : Fragment(), CountryItemClickListener {
             recyclerView.adapter = countryAdapter
         } else {
             Log.d("FavoriteCountriesFragment", "Favorite countries list is empty")
-            emptyMessageTextView.text = "Aucun pays trouvé"
+            emptyMessageTextView.text = "Favorite countries list is empty"
             emptyMessageTextView?.visibility = View.VISIBLE
             recyclerView.visibility = View.GONE
         }
