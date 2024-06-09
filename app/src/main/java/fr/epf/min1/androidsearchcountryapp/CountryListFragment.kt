@@ -92,7 +92,7 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
         }
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://restcountries.com/v3.1/")
+            .baseUrl("https://www.apicountries.com/countries/")
             .addConverterFactory(MoshiConverterFactory.create())
             .client(client)
             .build()
@@ -147,7 +147,7 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
     }
 
     override fun onCountryItemClicked(country: Country, isFavorite: Boolean) {
-        Log.d("CountryListFragment", "onCountryItemClicked: Clicked on country: ${country.name.common}, IsFavorite: $isFavorite")
+        Log.d("CountryListFragment", "onCountryItemClicked: Clicked on country: ${country.name}, IsFavorite: $isFavorite")
 
         val fragment = DetailCountryFragment()
         val bundle = Bundle()

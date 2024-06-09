@@ -45,8 +45,8 @@ class CountryAdapter(val countries: List<Country>, private val clickListener: Co
         val view = holder.itemView
 
         view.apply {
-            findViewById<TextView>(R.id.countryNameTextView).text = country.name.common
-            findViewById<TextView>(R.id.countryCapitalTextView).text = country.capital.getOrNull(0) ?: ""
+            findViewById<TextView>(R.id.countryNameTextView).text = country.name
+            findViewById<TextView>(R.id.countryCapitalTextView).text = country.capital
             Glide.with(context)
                 .load(country.flags.png)
                 .error(R.drawable.error_image)

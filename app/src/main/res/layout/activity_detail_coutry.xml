@@ -118,25 +118,6 @@
                         android:text="Value" />
             </LinearLayout>
 
-            <LinearLayout
-                    android:id="@+id/countryOfficialNameDetailsPage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="16dp">
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:text="Official Name: " />
-                <TextView
-                        android:id="@+id/countryOfficialNameDetailsPageValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:text="Value" />
-            </LinearLayout>
-
             <!--<LinearLayout
                     android:id="@+id/countryAbbreviationDetailsPage"
                     android:layout_width="match_parent"
@@ -175,24 +156,6 @@
                         android:text="Value" />
             </LinearLayout>
 
-            <LinearLayout
-                    android:id="@+id/countryUNMemberDetailsPage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="8dp">
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:text="UN Member: " />
-                <TextView
-                        android:id="@+id/countryUNMemberDetailsPageValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:text="Value" />
-            </LinearLayout>
 
             <LinearLayout
                     android:id="@+id/countryCurrencyDetailsPage"
@@ -222,25 +185,6 @@
                     android:layout_marginTop="16dp"
                     android:gravity="center" />
 
-            <!-- Continent -->
-            <LinearLayout
-                    android:id="@+id/countryContinentDetailsPage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="16dp">
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:text="Continent: " />
-                <TextView
-                        android:id="@+id/countryContinentDetailsPageValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:text="Value" />
-            </LinearLayout>
 
             <!-- Région -->
             <LinearLayout
@@ -351,25 +295,6 @@
                         android:text="Value" />
             </LinearLayout>
 
-            <LinearLayout
-                    android:id="@+id/countryLandlockedDetailsPage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="8dp">
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:text="Landlocked: " />
-                <TextView
-                        android:id="@+id/countryLandlockedDetailsPageValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:text="Value" />
-            </LinearLayout>
-
             <!-- Neighbors -->
             <LinearLayout
                     android:id="@+id/countryNeighborsDetailsPage"
@@ -441,27 +366,6 @@
                         android:text="Value" />
             </LinearLayout>
 
-            <!-- Map -->
-            <LinearLayout
-                    android:id="@+id/countryMapDetailsPage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="16dp">
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:text="Map: " />
-                <TextView
-                        android:id="@+id/countryMapDetailsPageValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:text="Value"
-                        android:autoLink="web"/>
-            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

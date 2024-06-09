@@ -52,7 +52,7 @@ class DetailCountryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.d("MYTAG", "DetailCountryFragment: onViewCreated")
         country = arguments?.getParcelable("country")
-        Log.d("MYTAG", "DetailCountryFragment: country ${country?.name?.common}")
+        Log.d("MYTAG", "DetailCountryFragment: country ${country?.name}")
 
         val isFavorite = FavoriteCountriesRepository.favoriteCountries.contains(country)
         updateFavoriteButton(isFavorite)
@@ -75,37 +75,40 @@ class DetailCountryFragment : Fragment() {
     private fun updateUI(view: View) {
         Log.d("MYTAG", "DetailCountryFragment: updateUI")
         country?.let {
-            view.findViewById<TextView>(R.id.countryTitleDetailsPage).text = it.name.common?: "Unknown"
-            view.findViewById<TextView>(R.id.countryCapitalDetailsPageValue).text = if (it.capital.isNotEmpty()) it.capital.joinToString(", ") else "Unknown"
+            view.findViewById<TextView>(R.id.countryTitleDetailsPage).text = it.name?: "Unknown"
+            view.findViewById<TextView>(R.id.countryCapitalDetailsPageValue).text = it.capital?:"Unknow"
 
-            view.findViewById<TextView>(R.id.countryCommonNameDetailsPageValue).text = it.name.common
-            view.findViewById<TextView>(R.id.countryOfficialNameDetailsPageValue).text = it.name.official?: "Unknown"
+            view.findViewById<TextView>(R.id.countryCommonNameDetailsPageValue).text = it.name
             //view.findViewById<TextView>(R.id.countryAbbreviationDetailsPageValue).text = it.idd.root
             //view.findViewById<TextView>(R.id.countryAbbreviationDetailsPageValue).text = it.idd.suffixes.joinToString(", ")?: "Unknown" pas interressant : fait un chiffre
             view.findViewById<TextView>(R.id.countryIndependentDetailsPageValue).text = it.independent.toString()
-            view.findViewById<TextView>(R.id.countryUNMemberDetailsPageValue).text = it.unMember.toString()
 
             view.findViewById<TextView>(R.id.countryPopulationDetailsPageValue).text = it.population.toString()
             view.findViewById<TextView>(R.id.countryRegionDetailsPageValue).text = it.region?: "Unknown"
             view.findViewById<TextView>(R.id.countrySubregionDetailsPageValue).text = it.subregion?: "Unknown"
-            view.findViewById<TextView>(R.id.countryContinentDetailsPageValue).text = it.continents.joinToString(", ")?: "Unknown"
 
             view.findViewById<TextView>(R.id.countryLatitudeDetailsPageValue).text = if (it.latlng.isNotEmpty()) it.latlng[0].toString() else "Unknown"
             view.findViewById<TextView>(R.id.countryLongitudeDetailsPageValue).text = if (it.latlng.size > 1) it.latlng[1].toString() else "Unknown"
-            view.findViewById<TextView>(R.id.countryLandlockedDetailsPageValue).text = it.landlocked.toString()
             view.findViewById<TextView>(R.id.countryNeighborsDetailsPageValue).text = if (it.borders != null && it.borders.isNotEmpty()) {
                 it.borders.joinToString(", ")
             } else {
                 "Unknown"
             }
 
-            view.findViewById<TextView>(R.id.countryMapDetailsPageValue).text = it.maps.googleMaps ?: "Unknown"
-            view.findViewById<TextView>(R.id.countryCallingCodesDetailsPageValue).text = if (it.idd.suffixes.isNotEmpty()) it.idd.suffixes.joinToString(", ") else "Unknown"
+            view.findViewById<TextView>(R.id.countryCallingCodesDetailsPageValue).text = if (it.callingCodes.isNotEmpty()) it.callingCodes.joinToString(", ") else "Unknown"
 
-            view.findViewById<TextView>(R.id.countryCurrencyDetailsPageValue).text = if (it.currencies.isNotEmpty()) it.currencies.keys.joinToString(", ") else "Unknown"
+            view.findViewById<TextView>(R.id.countryCurrencyDetailsPageValue).text = if (it.currencies.isNotEmpty()) {
+                it.currencies.joinToString(", ") { currency -> "${currency.name} ${currency.symbol}" }
+            } else {
+                "Unknown"
+            }
 
 
-            view.findViewById<TextView>(R.id.countryLanguagesDetailsPageValue).text = if (it.languages.isNotEmpty()) it.languages.values.joinToString(", ") else "Unknown"
+            view.findViewById<TextView>(R.id.countryLanguagesDetailsPageValue).text = if (it.languages.isNotEmpty()) {
+                it.languages.joinToString(", ") { language -> language.name }
+            } else {
+                "Unknown"
+            }
 
 
             Glide.with(this)

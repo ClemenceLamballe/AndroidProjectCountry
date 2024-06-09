@@ -72,7 +72,7 @@ class FavoriteCountriesFragment : Fragment(), CountryItemClickListener {
     }
 
     override fun onCountryItemClicked(country : Country, newFavoriteState : Boolean) {
-        Log.d("FavoriteCountriesFragment", "onCountryItemClicked called with country: ${country.name.common}, newFavoriteState: $newFavoriteState")
+        Log.d("FavoriteCountriesFragment", "onCountryItemClicked called with country: ${country.name}, newFavoriteState: $newFavoriteState")
 
         val fragment = DetailCountryFragment()
         val bundle = Bundle()

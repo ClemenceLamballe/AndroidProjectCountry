@@ -2,33 +2,28 @@ package fr.epf.mm.gestionclient.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+
 @Parcelize
 data class Country(
-    val name: Name,
-    val independent: Boolean,
-    val status: String,
-    val unMember: Boolean,
-    val currencies: Map<String, Currency>,
-    val idd: Idd,
-    val capital: List<String>,
-    val altSpellings: List<String>,
-    val region: String,
+    val name: String,
+    val alpha3Code: String,
+    val callingCodes: List<String>,
+    val capital: String,
     val subregion: String,
-    val languages: Map<String, String>,
-    val latlng: List<Double>,
-    val landlocked: Boolean,
-    val borders: List<String>,
-    val flag: String,
-    val maps: Maps,
+    val region: String,
     val population: Int,
-    val continents: List<String>,
+    val latlng: List<Double>,
+    val timezones: List<String>,
+    val borders: List<String>,
     val flags: Flags,
+    val currencies: List<Currency>,
+    val languages: List<Language>,
+    val independent: Boolean
 ) : Parcelable {
 
     @Parcelize
-    data class Name(
-        val common: String,
-        val official: String,
+    data class Flags(
+        val png: String
     ) : Parcelable
 
     @Parcelize
@@ -38,22 +33,13 @@ data class Country(
     ) : Parcelable
 
     @Parcelize
-    data class Idd(
-        val root: String,
-        val suffixes: List<String>
-    ) : Parcelable
-
-
-    @Parcelize
-    data class Maps(
-        val googleMaps: String,
-        val openStreetMaps: String
+    data class Language(
+        val name: String,
     ) : Parcelable
 
     @Parcelize
-    data class Flags(
-        val png: String,
-        val svg: String,
-        val alt: String?
+    data class RegionalBloc(
+        val acronym: String,
+        val name: String
     ) : Parcelable
 }

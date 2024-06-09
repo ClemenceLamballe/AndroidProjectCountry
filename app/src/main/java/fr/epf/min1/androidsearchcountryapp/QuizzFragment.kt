@@ -51,24 +51,24 @@ class QuizzFragment : Fragment() {
                 view.findViewById<TextView>(R.id.errorTextViewQuizz).visibility = View.VISIBLE
             } else {
                 country = favoriteCountries.random()
-                nameCountryText.text = "How much do you know about ${country.name.common}?"
+                nameCountryText.text = "How much do you know about ${country.name}?"
                 questions = listOf(
-                    Question("What is the official name of ${country.name.common}?", country.name.official),
-                    Question("Is ${country.name.common} independent?", country.independent.toString()),
-                    Question("What is the political status of ${country.name.common}?", country.status),
-                    Question("Is ${country.name.common} a member of the United Nations?", country.unMember.toString()),
-                    Question("What is the currency used in ${country.name.common}?", country.currencies.values.joinToString(", ") { it.name }),
-                    Question("What is the international dialing code of ${country.name.common}?", country.idd.root),
-                    Question("What is the capital of ${country.name.common}?", country.capital.joinToString(", ")),
-                    Question("What are the alternative names used for ${country.name.common}?", country.altSpellings.joinToString(", ")),
-                    Question("In which region is ${country.name.common} located?", country.region),
-                    Question("In which subregion is ${country.name.common} located?", country.subregion),
-                    Question("Which languages are spoken in ${country.name.common}?", country.languages.values.joinToString(", ")),
-                    Question("What are the geographical coordinates of ${country.name.common}?", country.latlng.joinToString(", ")),
-                    Question("Is ${country.name.common} landlocked?", country.landlocked.toString()),
-                    Question("Which countries border ${country.name.common}?", country.borders.joinToString(", ")),
-                    Question("What is the population of ${country.name.common}?", country.population.toString()),
-                    Question("On which continents is ${country.name.common} located?", country.continents.joinToString(", "))
+                    Question("What is the official name of ${country.name}?", country.name),
+                    //Question("Is ${country.name} independent?", country.independent.toString()),
+                    //Question("What is the political status of ${country.name}?", country.status),
+                    //Question("Is ${country.name} a member of the United Nations?", country.unMember.toString()),
+                    Question("What is the currency used in ${country.name}?", country.currencies.joinToString(", ") { it.name }),
+                    //Question("What is the international dialing code of ${country.name.common}?", country.idd.root),
+                    Question("What is the capital of ${country.name}?", country.capital),
+                    //Question("What are the alternative names used for ${country.name}?", country.altSpellings.joinToString(", ")),
+                    Question("In which region is ${country.name} located?", country.region),
+                    Question("In which subregion is ${country.name} located?", country.subregion),
+                    Question("Which languages are spoken in ${country.name}?", country.languages.joinToString(", ")),
+                    Question("What are the geographical coordinates of ${country.name}?", country.latlng.joinToString(", ")),
+                    //Question("Is ${country.name} landlocked?", country.landlocked.toString()),
+                    Question("Which countries border ${country.name}?", country.borders.joinToString(", ")),
+                    Question("What is the population of ${country.name}?", country.population.toString()),
+                    //Question("On which continents is ${country.name} located?", country.continents.joinToString(", "))
                 )
                 questionIndex = 0//Random.nextInt(0, questions.size)//changer pour
                 questionIndex = 0
