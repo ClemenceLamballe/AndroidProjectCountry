@@ -123,8 +123,6 @@ class QuizzFragment : Fragment() {
             Question("In which subregion is ${country.name} located?", country.subregion),
             Question("Which languages are spoken in ${country.name}?", country.languages.joinToString(", ") { it.name }),
             Question("What are the geographical coordinates of ${country.name}?", "${country.latlng[0]}° : ${country.latlng[1]}°"),
-            Question("Which countries border ${country.name}?", country.borders.joinToString(", ")),
-
             Question("What is the population of ${country.name}?",
                 "${country.population} people",
                 country.population),
@@ -134,7 +132,6 @@ class QuizzFragment : Fragment() {
             Question("What is the Gini index of ${country.name}?",
                 country.gini?.let { "%.1f".format(it)} ?: "Unknown",
                 country.gini?.toInt()),
-
             Question("What is the native name of ${country.name}?", country.nativeName),
             Question("What is the numeric code of ${country.name}?", country.numericCode),
             Question("What is the calling code of ${country.name}?", country.callingCodes.joinToString(", "))
