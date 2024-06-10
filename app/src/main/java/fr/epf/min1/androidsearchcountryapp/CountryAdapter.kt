@@ -25,6 +25,7 @@ interface CountryItemClickListener {
 class CountryAdapter(val countries: List<Country>, private val clickListener: CountryItemClickListener?=null) : RecyclerView.Adapter<CountryViewHolder>() {
 
     private lateinit var context: Context
+    private var isFavorite: Boolean = false
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder {
@@ -54,14 +55,14 @@ class CountryAdapter(val countries: List<Country>, private val clickListener: Co
 
             val favoriteButton = findViewById<ImageButton>(R.id.favoriteButton)
             //val isFavorite = sharedPreferences.getBoolean(country.name.common, false)
-            val isFavorite = FavoriteCountriesRepository.favoriteCountries.contains(country)
+            isFavorite = FavoriteCountriesRepository.favoriteCountries.contains(country)
 
             updateFavoriteButton(favoriteButton, isFavorite)
 
             favoriteButton.setOnClickListener {
-                val newFavoriteState = !isFavorite
-                updateFavoriteState(favoriteButton, country, newFavoriteState)
-                updateFavoriteButton(favoriteButton, newFavoriteState)
+                isFavorite = !isFavorite
+                updateFavoriteState(favoriteButton, country, isFavorite )
+                updateFavoriteButton(favoriteButton, isFavorite )
 
             }
 
@@ -82,6 +83,7 @@ class CountryAdapter(val countries: List<Country>, private val clickListener: Co
     private fun updateFavoriteState(button: ImageButton, country: Country, isFavorite: Boolean) {
         if (isFavorite) {
             FavoriteCountriesRepository.favoriteCountries.add(country)
+
             FavoriteCountriesRepository.saveFavorites(context)
 
         } else {

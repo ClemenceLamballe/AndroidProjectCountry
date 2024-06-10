@@ -54,17 +54,21 @@ class DetailCountryFragment : Fragment() {
         country = arguments?.getParcelable("country")
         Log.d("MYTAG", "DetailCountryFragment: country ${country?.name}")
 
-        val isFavorite = FavoriteCountriesRepository.favoriteCountries.contains(country)
+        isFavorite = FavoriteCountriesRepository.favoriteCountries.contains(country)
         updateFavoriteButton(isFavorite)
         favoriteButtonDetail.setOnClickListener {
             country?.let {
-                val newFavoriteState = !isFavorite
-                if (newFavoriteState) {
+                isFavorite = !isFavorite
+                if (isFavorite) {
                     FavoriteCountriesRepository.favoriteCountries.add(it)
+                    updateFavoriteButton(isFavorite)
+
                 } else {
                     FavoriteCountriesRepository.favoriteCountries.remove(it)
+                    updateFavoriteButton(isFavorite)
+
                 }
-                updateFavoriteButton(newFavoriteState)
+                updateFavoriteButton(isFavorite)
             }
         }
     }
@@ -121,5 +125,7 @@ class DetailCountryFragment : Fragment() {
             favoriteButtonDetail.setImageResource(android.R.drawable.btn_star_big_off)
         }
     }
+
+
 
 }
