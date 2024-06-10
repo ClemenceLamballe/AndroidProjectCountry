@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
                     replaceFragment(FavoriteCountriesFragment())
                     true
                 }
-                R.id.nav_quizz -> {
+                R.id.nav_quiz -> {
                     replaceFragment(QuizzFragment())
                     true
                 }

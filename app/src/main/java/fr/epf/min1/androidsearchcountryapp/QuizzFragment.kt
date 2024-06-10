@@ -20,6 +20,8 @@ class QuizzFragment : Fragment() {
     private var questionIndex = 0
     private lateinit var questions: List<Question>
     private var score = 0
+    private lateinit var countryNameSelected:TextView
+    private lateinit var questionTextView : TextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,7 +38,7 @@ class QuizzFragment : Fragment() {
         val questionPhraseTextView: TextView = view.findViewById(R.id.questionPhraseTextView)
         val answerEditText: EditText = view.findViewById(R.id.answerEditText)
         val submitButton: Button = view.findViewById(R.id.submitButton)
-        val questionsTextView: TextView = view.findViewById<TextView>(R.id.questionTextView)
+        questionTextView= view.findViewById<TextView>(R.id.questionTextView)
         val nameCountryText: TextView = view.findViewById(R.id.CountryNameTextViewQuizz)
         val nextButton: Button = view.findViewById(R.id.nextButton)
         val feedbackTextView: TextView = view.findViewById(R.id.feedbackTextView)
@@ -45,6 +47,9 @@ class QuizzFragment : Fragment() {
         val errorTextView: TextView = view.findViewById<TextView>(R.id.errorTextViewQuizz)
         val introTextView: TextView = view.findViewById<TextView>(R.id.IntroTextViewQuizz)
         val submitAndNextButtonLayout: LinearLayout = view.findViewById<LinearLayout>(R.id.submitAndNextButton)
+        countryNameSelected=view.findViewById(R.id.CountryNameTextViewQuizz)
+        questionTextView.text = "Question 1:"
+
 
         submitButton.isEnabled = false
         nextButton.isEnabled = false
@@ -56,7 +61,7 @@ class QuizzFragment : Fragment() {
                 startQuizzButton.visibility = View.GONE
                 introTextView.visibility = View.GONE
                 nameCountryText.visibility = View.VISIBLE
-                questionsTextView.visibility = View.VISIBLE
+                questionTextView.visibility = View.VISIBLE
                 answerEditText.visibility = View.VISIBLE
                 submitAndNextButtonLayout.visibility = View.VISIBLE
                 changeCountryButton.visibility = View.VISIBLE
@@ -93,8 +98,9 @@ class QuizzFragment : Fragment() {
 
         nextButton.setOnClickListener {
             questionIndex++
+            questionTextView.text = "Question ${questionIndex+ 1} :"
             if (questionIndex >= questions.size) {
-                displayFinalScore(feedbackTextView, nameCountryText, questionsTextView, answerEditText, submitAndNextButtonLayout, changeCountryButton, resultTextView, scoreTextView, questionPhraseTextView)
+                displayFinalScore(feedbackTextView, nameCountryText, answerEditText, submitAndNextButtonLayout, changeCountryButton, resultTextView, scoreTextView, questionPhraseTextView)
             } else {
                 displayQuestion(questionPhraseTextView, answerEditText, feedbackTextView)
                 submitButton.isEnabled = true
@@ -108,6 +114,7 @@ class QuizzFragment : Fragment() {
     private fun initializeQuiz(favoriteCountries: List<Country>, questionPhraseTextView: TextView, answerEditText: EditText, feedbackTextView: TextView, submitButton: Button, nextButton: Button, scoreTextView: TextView) {
         score = 0
         country = favoriteCountries.random()
+        countryNameSelected.text = "About ${country.name}..."
         questions = listOf(
             Question("Is ${country.name} an independent country?", booleanToYesNo(country.independent)),
             Question("What is the currency used in ${country.name}?", country.currencies.joinToString(", ") { it.name }),
@@ -145,7 +152,7 @@ class QuizzFragment : Fragment() {
         feedbackTextView.text = ""
     }
 
-    private fun displayFinalScore(feedbackTextView: TextView, nameCountryText: TextView, questionsTextView: TextView, answerEditText: EditText, submitAndNextButtonLayout: LinearLayout, changeCountryButton: Button, resultTextView: TextView, scoreTextView: TextView, questionPhraseTextView: TextView) {
+    private fun displayFinalScore(feedbackTextView: TextView, nameCountryText: TextView, answerEditText: EditText, submitAndNextButtonLayout: LinearLayout, changeCountryButton: Button, resultTextView: TextView, scoreTextView: TextView, questionPhraseTextView: TextView) {
         val message = when {
             score == questions.size -> "Excellent! You got all questions right."
             score > questions.size / 2 -> "Good job! You scored $score out of ${questions.size}."
@@ -153,7 +160,7 @@ class QuizzFragment : Fragment() {
         }
         feedbackTextView.text = message
         nameCountryText.visibility = View.GONE
-        questionsTextView.visibility = View.GONE
+        questionTextView.visibility = View.GONE
         answerEditText.visibility = View.GONE
         submitAndNextButtonLayout.visibility = View.GONE
         changeCountryButton.visibility = View.GONE
