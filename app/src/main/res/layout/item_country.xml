@@ -16,11 +16,14 @@
             android:padding="16dp">
 
             <ImageView
-                android:id="@+id/countryFlagImageView"
-                android:layout_width="64dp"
-                android:layout_height="32dp"
-                android:scaleType="fitCenter"
-                tools:src="@tools:sample/backgrounds/scenic" />
+                    android:id="@+id/countryFlagImageView"
+                    android:layout_width="90sp"
+                    android:layout_height="60sp"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    tools:src="@tools:sample/backgrounds/scenic" />
 
             <TextView
                 android:id="@+id/countryNameTextView"
@@ -28,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/countryFlagImageView"
                 android:layout_marginStart="16dp"
-                android:textSize="24sp"
+                android:textSize="28sp"
                 android:text="Name" />
 
             <TextView
@@ -37,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/countryNameTextView"
                 android:layout_alignStart="@id/countryNameTextView"
-                android:textSize="16sp"
+                android:textSize="22sp"
                 android:text="Capital" />
 
             <ImageButton

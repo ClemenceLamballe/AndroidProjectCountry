@@ -12,11 +12,8 @@ interface CountryService {
     @GET("all")
     suspend fun getCountries(): Response<List<Country>>
 
-    @GET("name/france")
-    suspend fun searchFrance(): Response<List<Country>>
-
-    @GET("character")
-    suspend fun test(): Response<List<Country>>
+    @GET("borders/{currentCountryName}/")
+    suspend fun searchCountryBorders(@Path("currentCountryName") currentCountryName: String): Response<List<Country>>
 
     @GET("countries/name/{searchTerm}/")
     suspend fun searchCountryByName(@Path("searchTerm") searchTerm: String): Response<List<Country>>

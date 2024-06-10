@@ -320,25 +320,17 @@
             </LinearLayout>
 
             <!-- Neighbors -->
-            <LinearLayout
-                    android:id="@+id/countryNeighborsDetailsPage"
-                    android:layout_width="match_parent"
+            <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="16dp">
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="24sp"
-                        android:text="Neighboring Countries: " />
-                <TextView
-                        android:id="@+id/countryNeighborsDetailsPageValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="24sp"
-                        android:text="Value" />
-            </LinearLayout>
+                    android:textSize="24sp"
+                    android:text="Neighboring Countries: " />
+            <TextView
+                    android:id="@+id/countryNeighborsDetailsPageValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:text="Value" />
 
             <!-- Title: Informations de communication -->
             <TextView

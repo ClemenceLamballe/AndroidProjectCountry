@@ -13,7 +13,7 @@ data class Country(
     val region: String,
     val population: Int,
     val latlng: List<Double>,
-    val area: Double?,
+    val area: Int?,
     val gini: Double?,
     val timezones: List<String>,
     val borders: List<String>,

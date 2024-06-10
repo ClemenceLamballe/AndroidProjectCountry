@@ -73,28 +73,6 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
             .readTimeout(45, TimeUnit.SECONDS)
             .build()
 
-
-
-        suspend fun tryToFetchCountry(countryService: CountryService, searchName: String): List<Country> {
-            val maxRetries = 5
-            var currentRetry = 0
-            var success = false
-            var countriesList: List<Country> = emptyList()
-
-            while (currentRetry < maxRetries && !success) {
-                try {
-                    val response = countryService.searchCountryByName(searchName)
-                    if (response.isSuccessful && response.body() != null) {
-                        countriesList = response.body()!!
-                        success = true
-                    }
-                } catch (_: Exception) {
-                }
-                currentRetry++
-            }
-            return countriesList
-        }
-
         val retrofit = Retrofit.Builder()
             .baseUrl("https://www.apicountries.com/")
             .addConverterFactory(MoshiConverterFactory.create())
@@ -104,16 +82,7 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
         val countryService = retrofit.create(CountryService::class.java)
 
 
-
-
         CoroutineScope(Dispatchers.IO).launch {
-            //withContext(Dispatchers.Main) {
-                //errorTextView.visibility = View.VISIBLE
-            //}
-
-            if (searchTerm != null) {
-                Log.d("MYTAG", searchTerm)
-            }
 
             try {
                 errorTextView.text = "Loading..."
