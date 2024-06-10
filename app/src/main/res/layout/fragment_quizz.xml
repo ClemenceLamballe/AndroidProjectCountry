@@ -8,17 +8,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Quizz"
-            android:textSize="24sp"
+            android:textSize="28sp"
             android:textStyle="bold"
             android:gravity="center"
             android:padding="16dp"
             style="@style/TitleTextViewStyle"/>
 
     <TextView
+            android:id="@+id/IntroTextViewQuizz"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Test your knowledge about your favorite countries now!"
-            android:textSize="16sp"
+            android:text="Test your knowledge about a random country in your favorite list  !"
+            android:textSize="24sp"
             android:gravity="left"
             android:padding="16dp"
             style="@style/TitleTextViewStyle"/>
@@ -27,6 +28,7 @@
             android:id="@+id/StartQuizzButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="24sp"
             android:text="Start Quiz"
             style="@style/ButtonStyle"/>
 
@@ -36,7 +38,7 @@
             android:layout_height="wrap_content"
             android:text="You must add countries to your favorite countries list first"
             android:textColor="@android:color/holo_red_dark"
-            android:textSize="16sp"
+            android:textSize="24sp"
             android:gravity="center"
             android:visibility="gone"
             android:padding="16dp"/>
@@ -47,10 +49,10 @@
             android:layout_height="wrap_content"
             android:text="How much do you know about ...."
             android:textStyle="bold"
-
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:gravity="left"
-            android:padding="16dp"
+            android:padding="14dp"
+            android:visibility="gone"
             style="@style/TitleTextViewStyle"/>
 
     <TextView
@@ -58,16 +60,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Question : "
-            android:textSize="18sp"
+            android:textSize="24sp"
             android:textStyle="bold"
-            android:layout_marginTop="16dp"/>
+            android:visibility="gone"
+            android:layout_marginTop="14dp"/>
 
     <TextView
             android:id="@+id/questionPhraseTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""
-            android:textSize="18sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp"/>
 
@@ -76,16 +79,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:textSize="24sp"
             android:hint="Answer"
+            android:visibility="gone"
             android:inputType="text"/>
 
 
 
     <LinearLayout
+            android:id="@+id/submitAndNextButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="16dp"
+            android:visibility="gone"
             android:gravity="center_horizontal">
 
         <Button
@@ -93,6 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
+                android:textSize="24sp"
                 android:text="Check"
                 style="@style/ButtonStyle"/>
 
@@ -100,6 +108,7 @@
                 android:id="@+id/nextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="24sp"
                 android:text="Next"
                 style="@style/ButtonStyle"/>
     </LinearLayout>
@@ -109,7 +118,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""
-            android:textSize="16sp"
+            android:textSize="24sp"
             android:gravity="center"
             android:layout_marginTop="16dp"/>
+
+    <Button
+            android:id="@+id/changeCountryButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textStyle="italic"
+            android:text="Change country"
+            android:visibility="gone"
+            style="@style/ButtonStyle"/>
+
 </LinearLayout>

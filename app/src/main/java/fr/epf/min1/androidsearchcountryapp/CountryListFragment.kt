@@ -92,7 +92,7 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
         }
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://www.apicountries.com/countries/")
+            .baseUrl("https://www.apicountries.com/")
             .addConverterFactory(MoshiConverterFactory.create())
             .client(client)
             .build()
@@ -107,6 +107,10 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
             //withContext(Dispatchers.Main) {
                 //errorTextView.visibility = View.VISIBLE
             //}
+
+            if (searchTerm != null) {
+                Log.d("MYTAG", searchTerm)
+            }
 
             try {
                 errorTextView.visibility = View.GONE

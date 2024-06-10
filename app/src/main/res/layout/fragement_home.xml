@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Search Country Application"
-        android:textSize="24sp"
+        android:textSize="28sp"
         android:textStyle="bold"
         android:gravity="center"
         android:padding="16dp"
@@ -21,27 +21,31 @@
     <EditText
         android:id="@+id/searchField"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="62sp"
+        android:textSize="28sp"
         android:hint="Search country" />
 
     <Button
         android:id="@+id/searchByCapitalButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60sp"
+        android:textSize="24sp"
         android:text="Search by Capital"
             style="@style/ButtonStyle"/>
 
     <Button
         android:id="@+id/searchByCountryButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60sp"
+        android:textSize="24sp"
         android:text="Search by Country"
             style="@style/ButtonStyle"/>
 
     <Button
         android:id="@+id/viewFavoritesButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60sp"
+        android:textSize="24sp"
         android:text="Favorite Countries"
             style="@style/ButtonStyle"
         />
@@ -49,7 +53,8 @@
     <Button
         android:id="@+id/QuizzButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60sp"
+        android:textSize="24sp"
         android:text="Play Quizz"
             style="@style/ButtonStyle"/>
 </LinearLayout>

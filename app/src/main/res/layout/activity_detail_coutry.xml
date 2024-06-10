@@ -8,6 +8,7 @@
         android:id="@+id/headerLayoutDetailsPage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/ButtonStyle"
         android:orientation="horizontal"
         android:layout_marginTop="16dp">
 
@@ -59,8 +60,6 @@
                     android:text="Value"
                         style="@style/TitleTextViewStyle"/>
 
-
-
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -93,28 +92,30 @@
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/cardview_light_background"
+                    style="@style/ButtonStyle"
                     android:text="General Information"
-                    android:textSize="20sp"
+                    android:textSize="26sp"
                     android:textStyle="bold"
                     android:layout_marginTop="16dp"
                     android:gravity="center" />
 
             <LinearLayout
-                    android:id="@+id/countryCommonNameDetailsPage"
+                    android:id="@+id/countryNativeNameDetailsPage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginTop="8dp">
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:text="Common Name: " />
+                        android:textSize="24sp"
+                        android:text="Native Name: " />
                 <TextView
-                        android:id="@+id/countryCommonNameDetailsPageValue"
+                        android:id="@+id/countryNativeNameDetailsPageValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:text="Value" />
             </LinearLayout>
 
@@ -146,13 +147,13 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:text="Independent: " />
                 <TextView
                         android:id="@+id/countryIndependentDetailsPageValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:text="Value" />
             </LinearLayout>
 
@@ -166,13 +167,13 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:text="Currency: " />
                 <TextView
                         android:id="@+id/countryCurrencyDetailsPageValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:text="Value" />
             </LinearLayout>
 
@@ -180,6 +181,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Geographical Information"
+                    android:background="@color/cardview_light_background"
+                    style="@style/ButtonStyle"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:layout_marginTop="16dp"
@@ -196,13 +199,13 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:text="Region: " />
                 <TextView
                         android:id="@+id/countryRegionDetailsPageValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:text="Value" />
             </LinearLayout>
 
@@ -216,13 +219,13 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:text="Subregion: " />
                 <TextView
                         android:id="@+id/countrySubregionDetailsPageValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:text="Value" />
             </LinearLayout>
 
@@ -236,13 +239,13 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:text="Population: " />
                 <TextView
                         android:id="@+id/countryPopulationDetailsPageValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:text="Value" />
             </LinearLayout>
             <!-- Title: Coordonnées géographiques -->
@@ -250,14 +253,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Other Geographical Information"
+                    android:background="@color/cardview_light_background"
+                    style="@style/ButtonStyle"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:layout_marginTop="16dp"
                     android:gravity="center" />
 
-            <!-- Latitude -->
             <LinearLayout
-                    android:id="@+id/countryLatitudeDetailsPage"
+                    android:id="@+id/countryAreaDetailsPage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -265,13 +269,33 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
+                        android:text="Area: " />
+                <TextView
+                        android:id="@+id/countryAreaDetailsPageValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
+                        android:text="Value" />
+            </LinearLayout>
+
+            <!-- Latitude -->
+            <LinearLayout
+                    android:id="@+id/countryLatitudeDetailsPage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
                         android:text="Latitude: " />
                 <TextView
                         android:id="@+id/countryLatitudeDetailsPageValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:text="Value" />
             </LinearLayout>
 
@@ -285,13 +309,14 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:text="Longitude: " />
+
                 <TextView
                         android:id="@+id/countryLongitudeDetailsPageValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:text="Value" />
             </LinearLayout>
 
@@ -306,13 +331,13 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:text="Neighboring Countries: " />
                 <TextView
                         android:id="@+id/countryNeighborsDetailsPageValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:text="Value" />
             </LinearLayout>
 
@@ -321,6 +346,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Communication Information"
+                    android:background="@color/cardview_light_background"
+                    style="@style/ButtonStyle"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:layout_marginTop="16dp"
@@ -336,13 +363,13 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:text="Languages: " />
                 <TextView
                         android:id="@+id/countryLanguagesDetailsPageValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:text="Value" />
             </LinearLayout>
 
@@ -356,17 +383,53 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:text="Calling Codes: " />
                 <TextView
                         android:id="@+id/countryCallingCodesDetailsPageValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:text="Value" />
             </LinearLayout>
 
+            <LinearLayout
+                    android:id="@+id/countryGiniDetailsPage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
+                        android:text="Gini: " />
+                <TextView
+                        android:id="@+id/countryGiniDetailsPageValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
+                        android:text="Value" />
+            </LinearLayout>
 
+            <LinearLayout
+                    android:id="@+id/countryNumericCodeDetailsPage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
+                        android:text="Numeric Code: " />
+                <TextView
+                        android:id="@+id/countryNumericCodeDetailsPageValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
+                        android:text="Value" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

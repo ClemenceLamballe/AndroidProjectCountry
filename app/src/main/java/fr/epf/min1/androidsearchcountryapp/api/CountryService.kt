@@ -18,7 +18,7 @@ interface CountryService {
     @GET("character")
     suspend fun test(): Response<List<Country>>
 
-    @GET("name/{searchTerm}/")
+    @GET("countries/name/{searchTerm}/")
     suspend fun searchCountryByName(@Path("searchTerm") searchTerm: String): Response<List<Country>>
 
     @GET("capital/{searchTerm}/")
