@@ -74,6 +74,19 @@
             android:textStyle="bold"
             android:layout_marginTop="16dp"/>
 
+    <TextView
+            android:id="@+id/ResultTextViewQuizz"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/colorCoralPink"
+            android:textSize="40sp"
+            android:gravity="center"
+            android:padding="16dp"
+            android:visibility="gone"
+            android:textStyle="bold"
+            style="@style/TitleTextViewStyle"/>
+
     <EditText
             android:id="@+id/answerEditText"
             android:layout_width="match_parent"
@@ -111,6 +124,17 @@
                 android:textSize="24sp"
                 android:text="Next"
                 style="@style/ButtonStyle"/>
+
+        <TextView
+                android:id="@+id/ScoreTextViewQuizz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:padding="16dp"
+                android:textColor="@color/colorCoralPink"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                style="@style/TitleTextViewStyle"/>
     </LinearLayout>
 
     <TextView

@@ -1,5 +1,6 @@
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,9 +19,8 @@ class QuizzFragment : Fragment() {
     private lateinit var country: Country
     private var questionIndex = 0
     private lateinit var questions: List<Question>
+    private var score = 0
 
-
-    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,60 +36,35 @@ class QuizzFragment : Fragment() {
         val questionPhraseTextView: TextView = view.findViewById(R.id.questionPhraseTextView)
         val answerEditText: EditText = view.findViewById(R.id.answerEditText)
         val submitButton: Button = view.findViewById(R.id.submitButton)
-
+        val questionsTextView: TextView = view.findViewById<TextView>(R.id.questionTextView)
         val nameCountryText: TextView = view.findViewById(R.id.CountryNameTextViewQuizz)
-
         val nextButton: Button = view.findViewById(R.id.nextButton)
         val feedbackTextView: TextView = view.findViewById(R.id.feedbackTextView)
+        val scoreTextView: TextView = view.findViewById<TextView>(R.id.ScoreTextViewQuizz)
+        val resultTextView: TextView = view.findViewById<TextView>(R.id.ResultTextViewQuizz)
+        val errorTextView: TextView = view.findViewById<TextView>(R.id.errorTextViewQuizz)
+        val introTextView: TextView = view.findViewById<TextView>(R.id.IntroTextViewQuizz)
+        val submitAndNextButtonLayout: LinearLayout = view.findViewById<LinearLayout>(R.id.submitAndNextButton)
 
         submitButton.isEnabled = false
         nextButton.isEnabled = false
 
-
-
         startQuizzButton.setOnClickListener {
             if (favoriteCountries.isEmpty()) {
-                view.findViewById<TextView>(R.id.errorTextViewQuizz).visibility = View.VISIBLE
+                errorTextView.visibility = View.VISIBLE
             } else {
                 startQuizzButton.visibility = View.GONE
-                view.findViewById<TextView>(R.id.IntroTextViewQuizz).visibility = View.GONE
+                introTextView.visibility = View.GONE
                 nameCountryText.visibility = View.VISIBLE
-                view.findViewById<TextView>(R.id.questionTextView).visibility = View.VISIBLE
+                questionsTextView.visibility = View.VISIBLE
                 answerEditText.visibility = View.VISIBLE
-                view.findViewById<LinearLayout>(R.id.submitAndNextButton).visibility = View.VISIBLE
+                submitAndNextButtonLayout.visibility = View.VISIBLE
                 changeCountryButton.visibility = View.VISIBLE
 
-                fun initializeQuiz() {
+                initializeQuiz(favoriteCountries, questionPhraseTextView, answerEditText, feedbackTextView, submitButton, nextButton, scoreTextView)
 
-                    country = favoriteCountries.random()
-                    nameCountryText.text = "How much do you know about ${country.name}?"
-                    questions = listOf(
-                        Question("What is the official name of ${country.name}?", country.name),
-                        Question("Is ${country.name} an independent country?", country.independent.toString()),
-                        Question("What is the currency used in ${country.name}?", country.currencies.joinToString(", ") { it.name }),
-                        Question("What is the capital of ${country.name}?", country.capital),
-                        Question("In which region is ${country.name} located?", country.region),
-                        Question("In which subregion is ${country.name} located?", country.subregion),
-                        Question("Which languages are spoken in ${country.name}?", country.languages.joinToString(", ") { it.name }),
-                        Question("What are the geographical coordinates of ${country.name}?", "${country.latlng[0]}° : ${country.latlng[1]}°"),
-                        Question("Which countries border ${country.name}?", country.borders.joinToString(", ")),
-                        Question("What is the population of ${country.name}?", "${country.population} people"),
-                        Question("What is the area of ${country.name}?", "${country.area?.toFloat()?.toInt()} km2" ?: "Unknown"),
-                        Question("What is the Gini index of ${country.name}?", country.gini?.let { "%.1f".format(it)} ?: "Unknown"),
-                        Question("What is the native name of ${country.name}?", country.nativeName),
-                        Question("What is the numeric code of ${country.name}?", country.numericCode),
-                        Question("What is the calling code of ${country.name}?", country.callingCodes.joinToString(", "))
-                    )
-                    questionIndex = 0//Random.nextInt(0, questions.size)//changer pour
-                    questionIndex = 0
-                    displayQuestion(questionPhraseTextView, answerEditText, feedbackTextView)
-                    submitButton.isEnabled = true
-                    nextButton.isEnabled = false
-                }
-                initializeQuiz()
                 changeCountryButton.setOnClickListener {
-                    country = favoriteCountries.random()
-                    initializeQuiz()
+                    initializeQuiz(favoriteCountries, questionPhraseTextView, answerEditText, feedbackTextView, submitButton, nextButton, scoreTextView)
                 }
             }
         }
@@ -99,6 +74,8 @@ class QuizzFragment : Fragment() {
             val correctAnswer = questions[questionIndex].answer
             if (userAnswer.equals(correctAnswer, ignoreCase = true)) {
                 feedbackTextView.text = "Correct!"
+                score++
+                scoreTextView.text = "${score}/${questions.size}"
             } else {
                 feedbackTextView.text = "Wrong! The correct answer is $correctAnswer."
             }
@@ -107,28 +84,66 @@ class QuizzFragment : Fragment() {
         }
 
         nextButton.setOnClickListener {
-            questionIndex = (questionIndex + 1) % questions.size
-            displayQuestion(questionPhraseTextView, answerEditText, feedbackTextView)
-            submitButton.isEnabled = true
-            nextButton.isEnabled = false
+            questionIndex++
+            if (questionIndex >= questions.size) {
+                displayFinalScore(feedbackTextView, nameCountryText, questionsTextView, answerEditText, submitAndNextButtonLayout, changeCountryButton, resultTextView, scoreTextView, questionPhraseTextView)
+            } else {
+                displayQuestion(questionPhraseTextView, answerEditText, feedbackTextView)
+                submitButton.isEnabled = true
+                nextButton.isEnabled = false
+            }
         }
-
-
-
 
         return view
     }
 
+    private fun initializeQuiz(favoriteCountries: List<Country>, questionPhraseTextView: TextView, answerEditText: EditText, feedbackTextView: TextView, submitButton: Button, nextButton: Button, scoreTextView: TextView) {
+        score = 0
+        country = favoriteCountries.random()
+        questions = listOf(
+            Question("Is ${country.name} an independent country?", country.independent.toString()),
+            Question("What is the currency used in ${country.name}?", country.currencies.joinToString(", ") { it.name }),
+            Question("What is the capital of ${country.name}?", country.capital),
+            Question("In which region is ${country.name} located?", country.region),
+            Question("In which subregion is ${country.name} located?", country.subregion),
+            Question("Which languages are spoken in ${country.name}?", country.languages.joinToString(", ") { it.name }),
+            Question("What are the geographical coordinates of ${country.name}?", "${country.latlng[0]}° : ${country.latlng[1]}°"),
+            Question("Which countries border ${country.name}?", country.borders.joinToString(", ")),
+            Question("What is the population of ${country.name}?", "${country.population} people"),
+            Question("What is the area of ${country.name}?", "${country.area?.toFloat()?.toInt()} km2" ?: "Unknown"),
+            Question("What is the Gini index of ${country.name}?", country.gini?.let { "%.1f".format(it)} ?: "Unknown"),
+            Question("What is the native name of ${country.name}?", country.nativeName),
+            Question("What is the numeric code of ${country.name}?", country.numericCode),
+            Question("What is the calling code of ${country.name}?", country.callingCodes.joinToString(", "))
+        )
+        questionIndex = 0
+        displayQuestion(questionPhraseTextView, answerEditText, feedbackTextView)
+        submitButton.isEnabled = true
+        nextButton.isEnabled = false
+        scoreTextView.text = "${score}/${questions.size}"
+    }
 
-    private fun displayQuestion(
-        questionPhraseTextView: TextView,
-        answerEditText: EditText,
-        feedbackTextView: TextView,
-    ) {
+    private fun displayQuestion(questionPhraseTextView: TextView, answerEditText: EditText, feedbackTextView: TextView) {
         questionPhraseTextView.text = questions[questionIndex].title
         answerEditText.text.clear()
         feedbackTextView.text = ""
     }
 
-
+    private fun displayFinalScore(feedbackTextView: TextView, nameCountryText: TextView, questionsTextView: TextView, answerEditText: EditText, submitAndNextButtonLayout: LinearLayout, changeCountryButton: Button, resultTextView: TextView, scoreTextView: TextView, questionPhraseTextView: TextView) {
+        val message = when {
+            score == questions.size -> "Excellent! You got all questions right."
+            score > questions.size / 2 -> "Good job! You scored $score out of ${questions.size}."
+            else -> "You scored $score out of ${questions.size}. Better luck next time!"
+        }
+        feedbackTextView.text = message
+        nameCountryText.visibility = View.GONE
+        questionsTextView.visibility = View.GONE
+        answerEditText.visibility = View.GONE
+        submitAndNextButtonLayout.visibility = View.GONE
+        changeCountryButton.visibility = View.GONE
+        resultTextView.visibility = View.VISIBLE
+        scoreTextView.visibility = View.GONE
+        questionPhraseTextView.text = "Result of the Quizz on ${country.name}!"
+        resultTextView.text = "${score}/${questions.size}"
+    }
 }

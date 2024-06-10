@@ -13,6 +13,7 @@
     <color name="colorAppBlue">#A7E0E0</color>
     <color name="colorAppBlueDark">#4AA3A2</color>
     <color name="colorAppPink">#E8AABE</color>
+    <color name="colorCoralPink">#FF5378</color>
 
 
     <color name="navigation_item_color">@color/colorAppBlue</color>
