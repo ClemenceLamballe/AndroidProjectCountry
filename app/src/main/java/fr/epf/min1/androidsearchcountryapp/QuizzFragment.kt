@@ -71,9 +71,17 @@ class QuizzFragment : Fragment() {
 
         submitButton.setOnClickListener {
             val userAnswer = answerEditText.text.toString().trim()
-            val correctAnswer = questions[questionIndex].answer
-            if (userAnswer.equals(correctAnswer, ignoreCase = true)) {
-                feedbackTextView.text = "Correct!"
+            val currentQuestion = questions[questionIndex]
+            val correctAnswer = currentQuestion.answer
+            val isCorrect = if (currentQuestion.numericAnswer != null) {
+                isApproximateCorrect(userAnswer, currentQuestion.numericAnswer)
+            } else {
+                userAnswer.equals(correctAnswer, ignoreCase = true)
+            }
+
+            if (isCorrect) {
+                if(currentQuestion.numericAnswer != null) feedbackTextView.text = "Correct! The exact answer is $correctAnswer."
+                else feedbackTextView.text = "Correct!"
                 score++
                 scoreTextView.text = "${score}/${questions.size}"
             } else {
@@ -101,7 +109,7 @@ class QuizzFragment : Fragment() {
         score = 0
         country = favoriteCountries.random()
         questions = listOf(
-            Question("Is ${country.name} an independent country?", country.independent.toString()),
+            Question("Is ${country.name} an independent country?", booleanToYesNo(country.independent)),
             Question("What is the currency used in ${country.name}?", country.currencies.joinToString(", ") { it.name }),
             Question("What is the capital of ${country.name}?", country.capital),
             Question("In which region is ${country.name} located?", country.region),
@@ -109,9 +117,17 @@ class QuizzFragment : Fragment() {
             Question("Which languages are spoken in ${country.name}?", country.languages.joinToString(", ") { it.name }),
             Question("What are the geographical coordinates of ${country.name}?", "${country.latlng[0]}° : ${country.latlng[1]}°"),
             Question("Which countries border ${country.name}?", country.borders.joinToString(", ")),
-            Question("What is the population of ${country.name}?", "${country.population} people"),
-            Question("What is the area of ${country.name}?", "${country.area?.toFloat()?.toInt()} km2" ?: "Unknown"),
-            Question("What is the Gini index of ${country.name}?", country.gini?.let { "%.1f".format(it)} ?: "Unknown"),
+
+            Question("What is the population of ${country.name}?",
+                "${country.population} people",
+                country.population),
+            Question("What is the area of ${country.name}?",
+                "${country.area?.toFloat()?.toInt()} km2" ?: "Unknown",
+                country.area),
+            Question("What is the Gini index of ${country.name}?",
+                country.gini?.let { "%.1f".format(it)} ?: "Unknown",
+                country.gini?.toInt()),
+
             Question("What is the native name of ${country.name}?", country.nativeName),
             Question("What is the numeric code of ${country.name}?", country.numericCode),
             Question("What is the calling code of ${country.name}?", country.callingCodes.joinToString(", "))
@@ -146,4 +162,15 @@ class QuizzFragment : Fragment() {
         questionPhraseTextView.text = "Result of the Quizz on ${country.name}!"
         resultTextView.text = "${score}/${questions.size}"
     }
+
+    private fun isApproximateCorrect(userAnswer: String, correctAnswer: Int?, tolerance: Double = 0.1): Boolean {
+        val userValue = userAnswer.toDoubleOrNull()
+        return if (userValue != null && correctAnswer != null) {
+            Math.abs(userValue - correctAnswer) / correctAnswer <= tolerance
+        } else {
+            false
+        }
+    }
+
+    fun booleanToYesNo(booleanAnswer: Boolean) = if (booleanAnswer) "yes" else "no"
 }
