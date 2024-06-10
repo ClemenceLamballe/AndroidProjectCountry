@@ -27,6 +27,8 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var countryAdapter: CountryAdapter
+    private lateinit var errorTextView : TextView
+
 
 
 
@@ -39,6 +41,8 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
         val view = inflater.inflate(R.layout.fragment_country_list, container, false)
         recyclerView = view.findViewById(R.id.countryListRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        errorTextView = view.findViewById<TextView>(R.id.errorTextView)
+
 
         return view
     }
@@ -98,8 +102,7 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
             .build()
 
         val countryService = retrofit.create(CountryService::class.java)
-        val errorTextView = view.findViewById<TextView>(R.id.errorTextView)
-        //errorTextView.text = "Chargement en cours"//marche pas
+
 
 
 
@@ -113,7 +116,8 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
             }
 
             try {
-                errorTextView.visibility = View.GONE
+                errorTextView.text = "Loading..."
+                errorTextView.visibility = View.VISIBLE
                 val response = when (searchByType) {
                     "country" -> countryService.searchCountryByName(searchTerm ?: "")
                     "capital" -> countryService.searchCountryByCapital(searchTerm ?: "")
@@ -124,20 +128,26 @@ class CountryListFragment : Fragment(), CountryItemClickListener  {
                     Log.d("CountryListFragment", "onResponse: Success")
                     val countries = response.body()
                     withContext(Dispatchers.Main) {
-                        if (countries != null) {
+                        if (countries != null && countries.isNotEmpty()) {
+                            Log.d("MYTAG", "Countries founded")
                             errorTextView.visibility = View.GONE
                             displayCountries(countries)
-                        } else {
-                            Toast.makeText(requireContext(), "No favorite countries found", Toast.LENGTH_SHORT).show()
-                            errorTextView.text = "No favorite countries found. Please verify you search in english. Search include common et official name."
-                            errorTextView.visibility = View.VISIBLE
                         }
+
                     }
                 }
+                else {
+                    withContext(Dispatchers.Main) {
+                        Log.d("MYTAG", "Countries NOT founded")
+                        errorTextView.text = "No countries found.\nPlease ensure that your search is in English."
+                        errorTextView.visibility = View.VISIBLE
+                    }
+                }
+
             }catch (e: Exception) {
                 Log.e("MYTAG", "Erreur lors de la récupération des données: ${e.message}")
-                withContext(Dispatchers.Main) {
-                    errorTextView.text = "Oops, the server might be unavailable, please try again later."// marche //Code d'erreur :  ${response?.code()}
+                requireActivity().runOnUiThread {
+                    errorTextView.text = "Apologies, an error has occurred on the server.\nPlease check your internet connection."
                     errorTextView.visibility = View.VISIBLE
                 }
             }

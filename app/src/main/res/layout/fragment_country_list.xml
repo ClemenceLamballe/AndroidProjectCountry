@@ -21,7 +21,7 @@
             android:id="@+id/errorTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Oops, le serveur est peut-être indisponible, réessayez plus tard."
+            android:text=""
             android:textColor="@android:color/holo_red_dark"
             android:textSize="24sp"
             android:gravity="center"

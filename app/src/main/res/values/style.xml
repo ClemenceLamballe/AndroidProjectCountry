@@ -15,5 +15,11 @@
         <item name="android:textColor">@color/colorAppBlueDark</item>
     </style>
 
+    <style name="ButtonStylePink">
+        <item name="android:backgroundTint">@color/colorAppPink</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/colorAppPinkDark</item>
+    </style>
+
 
 </resources>

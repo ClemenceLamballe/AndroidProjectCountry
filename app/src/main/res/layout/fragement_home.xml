@@ -39,22 +39,30 @@
         android:layout_height="60sp"
         android:textSize="24sp"
         android:text="Search by Country"
-            style="@style/ButtonStyle"/>
+            style="@style/ButtonStylePink"/>
 
-    <Button
+    <!--<Button
         android:id="@+id/viewFavoritesButton"
         android:layout_width="match_parent"
         android:layout_height="60sp"
         android:textSize="24sp"
         android:text="Favorite Countries"
             style="@style/ButtonStyle"
-        />
+        />-->
 
-    <Button
+    <!--<Button
         android:id="@+id/QuizzButton"
         android:layout_width="match_parent"
         android:layout_height="60sp"
         android:textSize="24sp"
         android:text="Play Quizz"
-            style="@style/ButtonStyle"/>
+            style="@style/ButtonStyle"/>-->
+
+
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/earth"
+            android:layout_marginTop="16dp"
+            android:scaleType="fitCenter"/>
 </LinearLayout>

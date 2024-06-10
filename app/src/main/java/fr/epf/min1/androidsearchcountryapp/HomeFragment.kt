@@ -28,8 +28,8 @@ class HomeFragment : Fragment()  {
         val searchField = view.findViewById<TextView>(R.id.searchField)
         val buttonsearchByCountry = view.findViewById<Button>(R.id.searchByCountryButton)
         val buttonsearchByCapital = view.findViewById<Button>(R.id.searchByCapitalButton)
-        val buttonViewFavorites = view.findViewById<Button>(R.id.viewFavoritesButton)
-        val buttonQuizz = view.findViewById<Button>(R.id.QuizzButton)
+        //val buttonViewFavorites = view.findViewById<Button>(R.id.viewFavoritesButton)
+        //val buttonQuizz = view.findViewById<Button>(R.id.QuizzButton)
         val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
 
@@ -78,7 +78,7 @@ class HomeFragment : Fragment()  {
         }
 
         // Gérer le clic sur le bouton pour afficher les favoris
-        buttonViewFavorites.setOnClickListener {
+        /*buttonViewFavorites.setOnClickListener {
             Log.d("MyTag", "Vers Favoris")
             val fragment = FavoriteCountriesFragment()
             //bottomNavigationView.selectedItemId = R.id.nav_favorites
@@ -97,7 +97,7 @@ class HomeFragment : Fragment()  {
                 .replace(R.id.fragment_container, fragment)
                 .addToBackStack(null)
                 .commit()
-        }
+        }*/
 
         return view
 

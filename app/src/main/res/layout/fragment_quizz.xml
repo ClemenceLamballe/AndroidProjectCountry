@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:textSize="24sp"
             android:text="Start Quiz"
-            style="@style/ButtonStyle"/>
+            style="@style/ButtonStylePink"/>
 
     <TextView
             android:id="@+id/errorTextViewQuizz"

@@ -83,7 +83,7 @@ class DetailCountryFragment : Fragment() {
             view.findViewById<TextView>(R.id.countrySubregionDetailsPageValue).text = it.subregion ?: "Unknown"
             view.findViewById<TextView>(R.id.countryLatitudeDetailsPageValue).text = if (it.latlng.isNotEmpty()) "${it.latlng[0]}°" else "Unknown"
             view.findViewById<TextView>(R.id.countryLongitudeDetailsPageValue).text = if (it.latlng.size > 1) "${it.latlng[1]}°" else "Unknown"
-            view.findViewById<TextView>(R.id.countryNeighborsDetailsPageValue).text = if (it.borders.isNotEmpty()) {
+            view.findViewById<TextView>(R.id.countryNeighborsDetailsPageValue).text = if (!it.borders.isNullOrEmpty()) {
                 it.borders.joinToString(", ")
             } else {
                 "None"
